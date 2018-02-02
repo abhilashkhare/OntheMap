@@ -37,10 +37,30 @@ class LoginViewController: UIViewController {
                 self.errorTextArea.text = error as! String
                 return
             }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print("testing")
-            print(String(data: newData!, encoding: .utf8)!)
+            
+            
+            
+            func sendError(_ error: String) {
+                print(error)
+                self.errorTextArea.text = "Please enter valid credentials"
+            }
+            
+         
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            let range = Range(5..<data.count)
+            let newData = data.subdata(in: range) /* subset response data! */
+            print(String(data: newData, encoding: .utf8)!)
         }
         task.resume()
     }
