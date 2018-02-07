@@ -42,7 +42,11 @@ class LoginViewController: UIViewController {
             
             func sendError(_ error: String) {
                 print(error)
-                self.errorTextArea.text = "Please enter valid credentials"
+                performUIUpdatesOnMain{
+                             self.errorTextArea.text = "Please enter valid credentials"
+                
+                }
+       
             }
             
          
@@ -61,6 +65,12 @@ class LoginViewController: UIViewController {
             let range = Range(5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
             print(String(data: newData, encoding: .utf8)!)
+            
+            performUIUpdatesOnMain{
+                let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UINavigationController
+                self.present(controller, animated: true, completion: nil)
+            }
+         
         }
         task.resume()
     }

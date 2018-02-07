@@ -13,6 +13,8 @@
 		34D4EC19201D5430001107E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D4EC17201D5430001107E8 /* LaunchScreen.storyboard */; };
 		34D4EC21201D56E5001107E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4EC20201D56E5001107E8 /* LoginViewController.swift */; };
 		34D4EC23201F0BDF001107E8 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4EC22201F0BDF001107E8 /* GCDBlackBox.swift */; };
+		34D4EC252024BB81001107E8 /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4EC242024BB81001107E8 /* OTMConstants.swift */; };
+		34D4EC27202AC181001107E8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4EC26202AC181001107E8 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		34D4EC1A201D5430001107E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34D4EC20201D56E5001107E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		34D4EC22201F0BDF001107E8 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		34D4EC242024BB81001107E8 /* OTMConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
+		34D4EC26202AC181001107E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,25 @@
 		34D4EC0D201D5430001107E8 /* OntheMap */ = {
 			isa = PBXGroup;
 			children = (
+				34D4EC28202AC19E001107E8 /* ViewControllers */,
 				34D4EC0E201D5430001107E8 /* AppDelegate.swift */,
 				34D4EC12201D5430001107E8 /* Main.storyboard */,
 				34D4EC15201D5430001107E8 /* Assets.xcassets */,
 				34D4EC17201D5430001107E8 /* LaunchScreen.storyboard */,
 				34D4EC1A201D5430001107E8 /* Info.plist */,
-				34D4EC20201D56E5001107E8 /* LoginViewController.swift */,
 				34D4EC22201F0BDF001107E8 /* GCDBlackBox.swift */,
+				34D4EC242024BB81001107E8 /* OTMConstants.swift */,
 			);
 			path = OntheMap;
+			sourceTree = "<group>";
+		};
+		34D4EC28202AC19E001107E8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				34D4EC26202AC181001107E8 /* MapViewController.swift */,
+				34D4EC20201D56E5001107E8 /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +156,8 @@
 				34D4EC21201D56E5001107E8 /* LoginViewController.swift in Sources */,
 				34D4EC23201F0BDF001107E8 /* GCDBlackBox.swift in Sources */,
 				34D4EC0F201D5430001107E8 /* AppDelegate.swift in Sources */,
+				34D4EC27202AC181001107E8 /* MapViewController.swift in Sources */,
+				34D4EC252024BB81001107E8 /* OTMConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
