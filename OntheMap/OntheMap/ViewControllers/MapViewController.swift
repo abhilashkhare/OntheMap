@@ -33,20 +33,22 @@ class MapViewController: UIViewController {
                 parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                 var  studentsArray = parsedResult["results"]  as? [[String : AnyObject]]
               //  print(studentsArray)
-                var latitude : [AnyObject] = []
-                var longitude = [AnyObject]()
+                var latitude : [Double] = []
+                var longitude = [Double]()
                 print(studentsArray?.count)
-                for i in 0...((studentsArray?.count)!-1)
+                for student in studentsArray!
                 {
                     
-                    latitude[i] = (studentsArray![i]["latitude"]  as? AnyObject)!
-                    
+                    latitude.append(student["latitude"]!as Double))
                 
-                    longitude[i] = (studentsArray![i]["longitude"] as? AnyObject)!
-                    
+                    longitude.append(student["longitude"]! as! Double)
+
                 }
                 
+                if studentsArray?.count != 0
+                {
                 self.markPins(latitude,longitude)
+                }
             }
             catch{
                 print("error")
@@ -61,13 +63,15 @@ class MapViewController: UIViewController {
     
     }
     
-    func markPins(_ latitude : [AnyObject], _ longtide : [AnyObject])
+    func markPins(_ latitude : [Double], _ longitude : [Double])
     {
         var location : [AnyObject] = []
         var coordinateRegion : [MKCoordinateRegion] = []
-        for i in 0...(latitude.count-1)
+        
+        
+        for i in 0...latitude.count-1
         {
-            location [i] = CLLocation(latitude: latitude[i] as! CLLocationDegrees, longitude: longtide[i] as! CLLocationDegrees)
+            location[i] = CLLocation(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
             let regionRadius : CLLocationDistance = 1000
             coordinateRegion[i] = MKCoordinateRegionMakeWithDistance(location [i] as! CLLocationCoordinate2D , regionRadius, regionRadius)
             performUIUpdatesOnMain{
