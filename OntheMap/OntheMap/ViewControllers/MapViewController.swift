@@ -26,13 +26,27 @@ class MapViewController: UIViewController {
                 print("error")
                 return
             }
-             print(String(data: data!, encoding: .utf8)!)
-            let parsedResult :  [String: AnyObject]
+       //      print(String(data: data!, encoding: .utf8)!)
+            
             do
-            {
+            {   let parsedResult :  [String: AnyObject]
                 parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
-                let latdictionary = try parsedResult["latitude"] as? [Double]
-                print(latdictionary)
+                var  studentsArray = parsedResult["results"]  as? [[String : AnyObject]]
+              //  print(studentsArray)
+                var latitude : [AnyObject] = []
+                var longitude = [AnyObject]()
+                print(studentsArray?.count)
+                for i in 0...((studentsArray?.count)!-1)
+                {
+                    
+                    latitude[i] = (studentsArray![i]["latitude"]  as? AnyObject)!
+                    
+                
+                    longitude[i] = (studentsArray![i]["longitude"] as? AnyObject)!
+                    
+                }
+                
+                self.markPins(latitude,longitude)
             }
             catch{
                 print("error")
@@ -46,6 +60,24 @@ class MapViewController: UIViewController {
         
     
     }
+    
+    func markPins(_ latitude : [AnyObject], _ longtide : [AnyObject])
+    {
+        var location : [AnyObject] = []
+        var coordinateRegion : [MKCoordinateRegion] = []
+        for i in 0...(latitude.count-1)
+        {
+            location [i] = CLLocation(latitude: latitude[i] as! CLLocationDegrees, longitude: longtide[i] as! CLLocationDegrees)
+            let regionRadius : CLLocationDistance = 1000
+            coordinateRegion[i] = MKCoordinateRegionMakeWithDistance(location [i] as! CLLocationCoordinate2D , regionRadius, regionRadius)
+            performUIUpdatesOnMain{
+                self.map.setRegion(coordinateRegion[i], animated: true)
+            }
+        }
+        
+        
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
