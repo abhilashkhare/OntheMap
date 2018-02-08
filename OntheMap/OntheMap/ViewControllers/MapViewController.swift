@@ -39,10 +39,9 @@ class MapViewController: UIViewController {
                 for student in studentsArray!
                 {
                     
-                    latitude.append(student["latitude"]!as Double))
+                    latitude.append(student["latitude"]! as! Double)
                 
                     longitude.append(student["longitude"]! as! Double)
-
                 }
                 
                 if studentsArray?.count != 0
