@@ -12,81 +12,84 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet  var map : MKMapView!
+    var annotations = [MKPointAnnotation]()
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100")!)
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        let session = URLSession.shared
-        print(request)
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                print("error")
-                return
+        ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
+        
+            if(error != nil)
+            {
+                print ("Error loading student data")
             }
-       //      print(String(data: data!, encoding: .utf8)!)
-            
-            do
-            {   let parsedResult :  [String: AnyObject]
-                parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
-                var  studentsArray = parsedResult["results"]  as? [[String : AnyObject]]
+     
+            else
+            {
+             
+              //  parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
+                let  studentsArray = data!["results"]  as? [[String : AnyObject]]
               //  print(studentsArray)
-                var latitude : [Double] = []
-                var longitude = [Double]()
+                
+                var studentInfo : [studentInformation] = []
+
                 print(studentsArray?.count)
                 for student in studentsArray!
                 {
                     
-                    latitude.append(student["latitude"]! as! Double)
-                
-                    longitude.append(student["longitude"]! as! Double)
+                    studentInfo.append(studentInformation(dictionary : student))
                 }
                 
                 if studentsArray?.count != 0
                 {
-                self.markPins(latitude,longitude)
+                    self.markPins(studentInfo)
                 }
             }
-            catch{
-                print("error")
-            }
-         
-            
-            
-            
-        }
-        task.resume()
-        
-    
+        })
     }
-    
-    func markPins(_ latitude : [Double], _ longitude : [Double])
+    func markPins(_ studentinfo : [studentInformation])
     {
-        var location : [AnyObject] = []
-        var coordinateRegion : [MKCoordinateRegion] = []
-        
-        
-        for i in 0...latitude.count-1
+        //var location : [AnyObject] = []
+   
+   
+      
+        for student in studentinfo
         {
-            location[i] = CLLocation(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
-            let regionRadius : CLLocationDistance = 1000
-            coordinateRegion[i] = MKCoordinateRegionMakeWithDistance(location [i] as! CLLocationCoordinate2D , regionRadius, regionRadius)
-            performUIUpdatesOnMain{
-                self.map.setRegion(coordinateRegion[i], animated: true)
+            if let latitude = student.latitude, let longitude = student.longitude {
+                let lat = CLLocationDegrees(latitude)
+                let long = CLLocationDegrees(longitude)
+                
+                let coordinate =   CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let firstName = student.firstName
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(firstName)"
+                annotation.subtitle = student.mediaURL
+                
+                annotations.append(annotation)
+    
             }
+        
+            
+            }
+        
+        performUIUpdatesOnMain {
+            self.map.addAnnotations(self.annotations)
         }
         
         
-    }
+        }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    }
     
 
-    }
 
   
-}
+
