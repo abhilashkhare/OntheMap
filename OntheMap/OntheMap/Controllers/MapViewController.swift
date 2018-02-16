@@ -12,29 +12,36 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet  var map : MKMapView!
+   
     var annotations = [MKPointAnnotation]()
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        callstudentInformation()
         
+
+    }
+    
+   @IBAction func callstudentInformation()
+    {
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
-        
+            
             if(error != nil)
             {
                 print ("Error loading student data")
             }
-     
+                
             else
             {
-             
-              //  parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
+                
+                //  parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
-              //  print(studentsArray)
+                //  print(studentsArray)
                 
                 var studentInfo : [studentInformation] = []
-
-                print(studentsArray?.count)
+                
+           
                 for student in studentsArray!
                 {
                     
@@ -48,12 +55,9 @@ class MapViewController: UIViewController {
             }
         })
     }
+    
     func markPins(_ studentinfo : [studentInformation])
     {
-        //var location : [AnyObject] = []
-   
-   
-      
         for student in studentinfo
         {
             if let latitude = student.latitude, let longitude = student.longitude {
@@ -63,10 +67,11 @@ class MapViewController: UIViewController {
                 let coordinate =   CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
                 let firstName = student.firstName
+                let lastName = student.lastName
                 
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
-                annotation.title = "\(firstName)"
+                annotation.title = "\(String(describing: firstName))" + " " + "\(String(describing: lastName))"
                 annotation.subtitle = student.mediaURL
                 
                 annotations.append(annotation)

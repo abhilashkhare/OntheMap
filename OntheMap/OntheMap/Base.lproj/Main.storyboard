@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,18 +68,85 @@
         <!--List-->
         <scene sceneID="aBg-2O-UhU">
             <objects>
-                <viewController id="FVn-W8-LoC" sceneMemberID="viewController">
+                <viewController id="FVn-W8-LoC" customClass="ListViewController" customModule="OntheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9zP-lN-kzW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDK-7O-1ui">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="On the Map" id="kYH-q9-VoD">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="6qi-as-6K2">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7RI-1g-E9A">
+                                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Logoff"/>
+                                            </button>
+                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="addButton" image="icon_addpin" id="tlt-cF-EKb"/>
+                                            <barButtonItem title="refreshButton" image="icon_refresh" id="92e-tN-Bft"/>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w5c-IM-g67">
+                                <rect key="frame" x="0.0" y="108" width="320" height="405"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ListCellOTM" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="78" id="h13-lC-b22" customClass="ListCellOTM" customModule="OntheMap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="78"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h13-lC-b22" id="dwz-0t-f3C">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="77.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_pin" translatesAutoresizingMaskIntoConstraints="NO" id="SH0-ou-qMc">
+                                                    <rect key="frame" x="15" y="11" width="72" height="56"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M59-qS-Fty" userLabel="Name">
+                                                    <rect key="frame" x="88" y="11" width="217" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auB-Ul-YBV" userLabel="URL">
+                                                    <rect key="frame" x="88" y="35" width="217" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="URL" destination="auB-Ul-YBV" id="d0Y-gl-JhB"/>
+                                            <outlet property="name" destination="M59-qS-Fty" id="g0h-Tk-EMP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="w5c-IM-g67" firstAttribute="trailing" secondItem="cDK-7O-1ui" secondAttribute="trailing" id="2Di-by-Scx"/>
+                            <constraint firstItem="cDK-7O-1ui" firstAttribute="top" secondItem="h9R-xF-ncP" secondAttribute="top" id="2KU-Zp-vNe"/>
+                            <constraint firstItem="cDK-7O-1ui" firstAttribute="trailing" secondItem="h9R-xF-ncP" secondAttribute="trailing" id="BHf-74-SYA"/>
+                            <constraint firstItem="h9R-xF-ncP" firstAttribute="bottom" secondItem="w5c-IM-g67" secondAttribute="bottom" constant="6" id="Wz5-FM-BP5"/>
+                            <constraint firstItem="w5c-IM-g67" firstAttribute="top" secondItem="cDK-7O-1ui" secondAttribute="bottom" id="XIY-7G-MZG"/>
+                            <constraint firstItem="cDK-7O-1ui" firstAttribute="leading" secondItem="h9R-xF-ncP" secondAttribute="leading" id="fV8-cb-dJP"/>
+                            <constraint firstItem="w5c-IM-g67" firstAttribute="leading" secondItem="cDK-7O-1ui" secondAttribute="leading" id="sJQ-r5-ZCX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="h9R-xF-ncP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" selectedImage="icon_listview-selected" id="ODv-hR-eCW"/>
+                    <tabBarItem key="tabBarItem" title="List" image="icon_listview-selected" selectedImage="icon_listview-selected" id="ODv-hR-eCW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFc-aj-iGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1721" y="602"/>
+            <point key="canvasLocation" x="1719.375" y="601.05633802816897"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="5bo-ri-QRN">
@@ -88,50 +156,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocT-KY-GAw">
+                                <rect key="frame" x="0.0" y="64" width="320" height="50"/>
+                                <items>
+                                    <navigationItem title="On the Map" id="nil-Lg-eyK">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="PhH-0T-51o">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YSf-Le-d8u">
+                                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Logoff"/>
+                                            </button>
+                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="addButton" image="icon_addpin" id="oNP-6L-jze"/>
+                                            <barButtonItem title="refreshButton" image="icon_refresh" id="4mh-sl-TCO">
+                                                <connections>
+                                                    <action selector="callstudentInformation" destination="Tlw-L3-tcm" id="mGc-kz-wMf"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PyX-Ea-rbg">
-                                <rect key="frame" x="0.0" y="114" width="320" height="405"/>
+                                <rect key="frame" x="0.0" y="114" width="320" height="361"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="238" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBa-gy-VNN">
-                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="gbE-Tb-bIS"/>
-                                </constraints>
-                                <state key="normal" title="Pin" image="icon_pin"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xe9-wK-NAP">
-                                <rect key="frame" x="289.5" y="64" width="30.5" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="geH-Yd-qyl"/>
-                                </constraints>
-                                <state key="normal" title="Refresh" image="icon_refresh"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="On the Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQ6-Im-Q62">
-                                <rect key="frame" x="125" y="79" width="89.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PyX-Ea-rbg" firstAttribute="leading" secondItem="ADe-FH-3AI" secondAttribute="leading" id="7VO-S2-eyE"/>
                             <constraint firstItem="ADe-FH-3AI" firstAttribute="bottom" secondItem="PyX-Ea-rbg" secondAttribute="bottom" id="Awc-ZT-8VE"/>
                             <constraint firstItem="PyX-Ea-rbg" firstAttribute="top" secondItem="ADe-FH-3AI" secondAttribute="top" constant="50" id="DTK-Y7-c5S"/>
-                            <constraint firstItem="xe9-wK-NAP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zi9-ld-TJ8" secondAttribute="leading" constant="20" symbolic="YES" id="ERj-2m-Jyr"/>
+                            <constraint firstItem="ocT-KY-GAw" firstAttribute="leading" secondItem="ADe-FH-3AI" secondAttribute="leading" id="Dsc-fE-p8D"/>
                             <constraint firstItem="ADe-FH-3AI" firstAttribute="bottom" secondItem="PyX-Ea-rbg" secondAttribute="bottom" id="LLC-d4-4VB"/>
-                            <constraint firstItem="tQ6-Im-Q62" firstAttribute="leading" secondItem="IBa-gy-VNN" secondAttribute="trailing" constant="75" id="Rqc-ue-n82"/>
-                            <constraint firstItem="xe9-wK-NAP" firstAttribute="leading" secondItem="tQ6-Im-Q62" secondAttribute="trailing" constant="75" id="XS3-53-LOb"/>
-                            <constraint firstItem="tQ6-Im-Q62" firstAttribute="top" secondItem="ADe-FH-3AI" secondAttribute="top" constant="15" id="blM-aR-6Cp"/>
-                            <constraint firstItem="PyX-Ea-rbg" firstAttribute="top" secondItem="xe9-wK-NAP" secondAttribute="bottom" id="c9T-ba-yei"/>
+                            <constraint firstItem="PyX-Ea-rbg" firstAttribute="top" secondItem="ocT-KY-GAw" secondAttribute="bottom" id="csJ-C9-jrU"/>
                             <constraint firstItem="ADe-FH-3AI" firstAttribute="trailing" secondItem="PyX-Ea-rbg" secondAttribute="trailing" id="n4r-by-Ayc"/>
-                            <constraint firstItem="xe9-wK-NAP" firstAttribute="top" secondItem="ADe-FH-3AI" secondAttribute="top" id="sg9-Ud-gu7"/>
-                            <constraint firstItem="xe9-wK-NAP" firstAttribute="trailing" secondItem="ADe-FH-3AI" secondAttribute="trailing" id="vu2-Oe-cFj"/>
-                            <constraint firstItem="IBa-gy-VNN" firstAttribute="leading" secondItem="ADe-FH-3AI" secondAttribute="leading" id="w72-77-gjd"/>
-                            <constraint firstItem="IBa-gy-VNN" firstAttribute="top" secondItem="ADe-FH-3AI" secondAttribute="top" id="wZ3-zZ-U85"/>
+                            <constraint firstItem="ocT-KY-GAw" firstAttribute="trailing" secondItem="ADe-FH-3AI" secondAttribute="trailing" id="pFT-jQ-dKP"/>
+                            <constraint firstItem="ocT-KY-GAw" firstAttribute="top" secondItem="ADe-FH-3AI" secondAttribute="top" id="wok-NQ-Vff"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ADe-FH-3AI"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" selectedImage="icon_mapview-selected" id="KNS-aC-AIt"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-selected" selectedImage="icon_mapview-selected" id="KNS-aC-AIt"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="0UY-eF-OZG"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="map" destination="PyX-Ea-rbg" id="rHE-0M-tRq"/>
                     </connections>
@@ -177,6 +246,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_addpin" width="24" height="24"/>
         <image name="icon_listview-selected" width="75" height="50"/>
         <image name="icon_mapview-selected" width="75" height="50"/>
         <image name="icon_pin" width="24" height="24"/>
