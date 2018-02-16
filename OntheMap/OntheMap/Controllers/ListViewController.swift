@@ -12,7 +12,7 @@ import Foundation
 
 class ListViewController:  UITableViewController {
 
-        var studentInfo : [studentInformation] = []
+   var studentInfo : [studentInformation] = []
 
    
     override func viewWillAppear(_ animated: Bool) {
