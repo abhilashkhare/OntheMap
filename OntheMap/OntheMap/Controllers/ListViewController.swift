@@ -7,10 +7,12 @@
 
 
 import UIKit
+import Foundation
+
 
 class ListViewController:  UITableViewController {
 
-    var studentInfo : [studentInformation] = []
+        var studentInfo : [studentInformation] = []
 
    
     override func viewWillAppear(_ animated: Bool) {
@@ -24,32 +26,27 @@ class ListViewController:  UITableViewController {
         
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
             
+            performUIUpdatesOnMain {
             if(error != nil)
             {
                 print ("Error loading student data")
             }
-                
             else
             {
-                
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
-             
-      
+        
                 for student in studentsArray!
                 {
-                    
                     self.studentInfo.append(studentInformation(dictionary : student))
                 }
                 
                 if self.studentInfo.count != 0
                 {
-                    performUIUpdatesOnMain {
-                       
-                        self.tableView.reloadData()
-                }
+                    self.tableView.reloadData()
                 }
             }
-        })
+         }
+     })
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
