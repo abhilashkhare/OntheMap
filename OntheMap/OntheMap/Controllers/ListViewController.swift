@@ -58,6 +58,7 @@ class ListViewController:  UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
         let info = studentInfo[(indexPath as NSIndexPath).row]
         
+        tableView.rowHeight = 55
         
         if let firstname = info.firstName,let  lastname = info.lastName{
             
