@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34AC51F52033E67600781676 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC51F42033E67600781676 /* ListViewController.swift */; };
 		34AC51F820367D3B00781676 /* ListCellOTM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC51F720367D3B00781676 /* ListCellOTM.swift */; };
+		34AC51FA20399B7400781676 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC51F920399B7300781676 /* AddLocationViewController.swift */; };
 		34D4EC0F201D5430001107E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4EC0E201D5430001107E8 /* AppDelegate.swift */; };
 		34D4EC14201D5430001107E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D4EC12201D5430001107E8 /* Main.storyboard */; };
 		34D4EC16201D5430001107E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D4EC15201D5430001107E8 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		34AC51F42033E67600781676 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		34AC51F720367D3B00781676 /* ListCellOTM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellOTM.swift; sourceTree = "<group>"; };
+		34AC51F920399B7300781676 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		34D4EC0B201D5430001107E8 /* OntheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OntheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D4EC0E201D5430001107E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D4EC13201D5430001107E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				34D4EC26202AC181001107E8 /* MapViewController.swift */,
 				34D4EC20201D56E5001107E8 /* LoginViewController.swift */,
 				34AC51F42033E67600781676 /* ListViewController.swift */,
+				34AC51F920399B7300781676 /* AddLocationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				34AC51F820367D3B00781676 /* ListCellOTM.swift in Sources */,
 				34D4EC21201D56E5001107E8 /* LoginViewController.swift in Sources */,
 				34D4EC2F20313A06001107E8 /* ParseClient.swift in Sources */,
+				34AC51FA20399B7400781676 /* AddLocationViewController.swift in Sources */,
 				34D4EC23201F0BDF001107E8 /* GCDBlackBox.swift in Sources */,
 				34AC51F52033E67600781676 /* ListViewController.swift in Sources */,
 				34D4EC0F201D5430001107E8 /* AppDelegate.swift in Sources */,

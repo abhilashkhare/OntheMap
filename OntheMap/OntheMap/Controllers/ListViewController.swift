@@ -68,5 +68,30 @@ class ListViewController:  UITableViewController {
         return cell
         
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      let info = studentInfo[(indexPath as NSIndexPath).row ]
+        let url = URL( string : info.mediaURL!)
+        
+        if url?.scheme != "https"
+        {
+            displayAlert("","Invalid URL","Dismiss")
+        }
+        else
+        {
+            UIApplication.shared.open(url!)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+    }
+    
+    func displayAlert(_ title : String, _ message : String , _ action : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
