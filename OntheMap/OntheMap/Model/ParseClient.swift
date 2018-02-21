@@ -28,8 +28,8 @@ class ParseClient
             
             func sendError(_ error: String) {
                 print(error)
-                let studentinfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: studentinfo))
+                let errorInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: errorInfo))
             }
             
             /* GUARD: Was there an error? */

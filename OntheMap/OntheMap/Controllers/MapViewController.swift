@@ -19,6 +19,21 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         callstudentInformation()
+//        ParseClient.sharedInstance().getStudentInformation { (success, data, error) in
+//            if(error != nil)
+//            {
+//                print ("Error loading student data")
+//            }
+//
+//            else
+//            {
+//                studentLocation = data!["results"]  as? [String : AnyObject]
+//
+//
+//
+//
+//            }
+//        }
         
 
     }
@@ -34,17 +49,12 @@ class MapViewController: UIViewController {
                 
             else
             {
-                
-                //  parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
-                //  print(studentsArray)
                 
                 var studentInfo : [studentInformation] = []
                 
-           
                 for student in studentsArray!
-                {
-                    
+                {                    
                     studentInfo.append(studentInformation(dictionary : student))
                 }
                 

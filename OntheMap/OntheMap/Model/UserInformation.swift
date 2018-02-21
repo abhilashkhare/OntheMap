@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+var uniqueKey = ""
+var studentLocation = studentInformation(dictionary: [:])
+
+class SharedData {
+    
+    static let sharedInstance = SharedData()
+    var StudentLocations = [studentInformation]()
+    private init() {}
+    
+}
