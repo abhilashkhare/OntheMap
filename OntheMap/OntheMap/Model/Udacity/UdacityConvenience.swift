@@ -16,16 +16,14 @@ extension UdacityClient{
         taskforPOSTmethod(username,password){
             (result,error) in performUIUpdatesOnMain {
             
-                if error != nil{
-                 
+                if (error != nil) && (error == "Your request returned a status code other than 2xx!"){
                     completionHandlerforAuth(false,result!,error!)
                     
                 }
                 else
                 {
                     if  let account = result!["account"] as? [String : AnyObject],let key = account["key"] as? String{
-                        uniqueKey = key
-                        print(uniqueKey)
+                         Constants.StudentInformation.uniqueKey = key
 
                 completionHandlerforAuth(true,result!,nil)
                     }

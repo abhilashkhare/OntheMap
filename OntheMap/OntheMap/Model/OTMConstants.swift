@@ -15,6 +15,7 @@ struct Constants
         static var lat : Double = 0.0000
         static var long : Double = 0.0000
         static var location : String = ""
+        static var uniqueKey : String = ""
         
     }
 }

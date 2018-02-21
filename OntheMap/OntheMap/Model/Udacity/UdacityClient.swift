@@ -29,8 +29,7 @@ class UdacityClient{
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(_ error: String) {
-                print(error)
-                completionHandlerForPOST(nil, error)
+                completionHandlerForPOST("NULL" as AnyObject, error)
             }
             
             /* GUARD: Was there an error? */

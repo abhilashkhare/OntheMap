@@ -37,27 +37,33 @@ extension ParseClient
     
     //GETting a student location
     
+    func getStudentInformation(_ completionHandlerForGetStudentInfo : @ escaping (_ success : Bool , _ result : AnyObject?, _ errorString : String?) -> Void )
+    {
+        let parameters = ["where" : "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\"}"]
+        taskForGETMethod(parameters: parameters as [String : AnyObject]) { (result, error) in
+
+            if let error = error {
+                print(error)
+                completionHandlerForGetStudentInfo(false,nil,"Failed to GET student information")
+
+            }
+            else
+            {
+      
+                print(result!["results"])
+                let  results = result!["results"]  as? [String : AnyObject]
+                userInformation = studentInformation(dictionary: results!)
+                print(userInformation)
+                
+                print(userInformation.firstName)
+                completionHandlerForGetStudentInfo(true , result , nil)
+                
+             
+            }
+    }
+ }
     
-//    func getStudentInformation(_ completionHandlerForGetStudentInfo : @ escaping (_ success : Bool , _ result : AnyObject?, _ errorString : String?) -> Void )
-//    {
-//        let parameters = ["where" : "{\"uniqueKey\":\"\(uniqueKey)\"}"]
-//        taskForGETMethod(parameters: parameters as [String : AnyObject]) { (result, error) in
-//
-//            if let error = error {
-//                print(error)
-//                completionHandlerForGetStudentsInfo(false,nil,"Failed to GET student information")
-//
-//            }
-//            else
-//            {
-//                completionHandlerForGetStudentsInfo(true , result , nil)
-//
-//            }
-//    }
-    
-    
-    
-    
+ 
 }
 
         

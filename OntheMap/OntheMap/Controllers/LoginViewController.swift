@@ -21,37 +21,44 @@ class LoginViewController: UIViewController {
         let passwordtext = password.text!
         
         UdacityClient.sharedInstance().authentication(self, usernameText, passwordtext) { (success, data, error) in
-            if(error != nil)
+            if(success == false)
             {
-                print(error!)
+           
                 performUIUpdatesOnMain{
-                    self.errorTextArea.text = "Please enter valid credentials"
+                    self.errorTextArea.text = "Please enter valid username/password"
                 }
             }
             else
             {
-                
-       
-                
-                            performUIUpdatesOnMain{
+            performUIUpdatesOnMain{
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
                                 self.present(controller, animated: true, completion: nil)
+                ParseClient.sharedInstance().getStudentInformation({ (success, result, error) in
+                    
+                    if(success == false){
+                        print("Issue retrieving userinformation")
+                        //displayAlert("Error", "User account has issues", "OK")
+                    }
+                    else
+                    {
+                        
+                    }
+                    
+                })
                             }
                 
                         }
             
             }
         
-        
-        
-        
-        
-        }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    
+   
 
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+}
+}
     
 
 

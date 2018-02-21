@@ -8,8 +8,7 @@
 
 import Foundation
 
-var uniqueKey = ""
-var studentLocation = studentInformation(dictionary: [:])
+var userInformation = studentInformation(dictionary: [:])
 
 class SharedData {
     

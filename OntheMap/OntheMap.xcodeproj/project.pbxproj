@@ -78,6 +78,15 @@
 			path = Udacity;
 			sourceTree = "<group>";
 		};
+		34AC5204203D5D4600781676 /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				34D4EC2E20313A05001107E8 /* ParseClient.swift */,
+				34D4EC3020313F37001107E8 /* ParseConvenience.swift */,
+			);
+			path = Parse;
+			sourceTree = "<group>";
+		};
 		34D4EC02201D5430001107E8 = {
 			isa = PBXGroup;
 			children = (
@@ -105,8 +114,6 @@
 				34D4EC15201D5430001107E8 /* Assets.xcassets */,
 				34D4EC17201D5430001107E8 /* LaunchScreen.storyboard */,
 				34D4EC1A201D5430001107E8 /* Info.plist */,
-				34D4EC22201F0BDF001107E8 /* GCDBlackBox.swift */,
-				34D4EC242024BB81001107E8 /* OTMConstants.swift */,
 			);
 			path = OntheMap;
 			sourceTree = "<group>";
@@ -126,11 +133,12 @@
 		34D4EC2B202D730F001107E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				34AC5204203D5D4600781676 /* Parse */,
 				34AC51FF203CE31200781676 /* Udacity */,
 				34D4EC29202D27AB001107E8 /* StudentInformation.swift */,
-				34D4EC2E20313A05001107E8 /* ParseClient.swift */,
-				34D4EC3020313F37001107E8 /* ParseConvenience.swift */,
 				34AC51FB203ACB2100781676 /* UserInformation.swift */,
+				34D4EC242024BB81001107E8 /* OTMConstants.swift */,
+				34D4EC22201F0BDF001107E8 /* GCDBlackBox.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
