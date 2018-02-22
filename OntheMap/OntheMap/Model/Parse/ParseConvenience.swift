@@ -51,11 +51,13 @@ extension ParseClient
             {
       
                 print(result!["results"])
-                let  results = result!["results"]  as? [String : AnyObject]
-                userInformation = studentInformation(dictionary: results!)
-                print(userInformation)
-                
-                print(userInformation.firstName)
+                if let  results = result!["results"]  as? [String : AnyObject]
+                    
+                {
+                    userInformation = studentInformation(dictionary: results)
+                    print(userInformation)
+                    print(userInformation.firstName)
+                }
                 completionHandlerForGetStudentInfo(true , result , nil)
                 
              
