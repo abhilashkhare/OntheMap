@@ -8,27 +8,27 @@
 
 import Foundation
 
-struct studentInformation
+public struct studentInformation
 {
-    var firstName: String?
-    var lastName: String?
-    var latitude: Double?
-    var longitude: Double?
-    var mediaURL: String?
-    var objectID: String?
-    var uniqueKey: String?
-    var mapString: String?
+    var firstName: String? = "First Name"
+    var lastName: String? = "Last Name"
+    var latitude: Double? = 0.0
+    var longitude: Double? = 0.0
+    var mediaURL: String? = "Media URL"
+    var objectID: String? = "ObjectID"
+    var uniqueKey: String? = "Unique Key"
+    var mapString: String? = "Map String"
     
     init(dictionary : [String : AnyObject])
     {
-        firstName =  dictionary["firstName"] as? String
-        lastName = dictionary["lastName"] as? String
-        latitude = dictionary["latitude"] as? Double
-        longitude = dictionary["longitude"] as? Double
-        mediaURL = dictionary["mediaURL"] as? String
-        objectID = dictionary["objectId"] as? String
-        uniqueKey = dictionary["uniqueKey"] as? String
-        mapString = dictionary["mapString"] as? String
+        firstName =  (dictionary["firstName"] as? String)
+        lastName = (dictionary["lastName"] as? String)
+        latitude = (dictionary["latitude"] as? Double)
+        longitude = (dictionary["longitude"] as? Double)
+        mediaURL = (dictionary["mediaURL"] as? String)
+        objectID = (dictionary["objectId"] as? String)
+        uniqueKey = (dictionary["uniqueKey"] as? String)
+        mapString = (dictionary["mapString"] as? String)
     }
 }
 

@@ -54,10 +54,10 @@ class MapViewController: UIViewController {
     {
         for student in studentinfo
         {
-            if let latitude = student.latitude, let longitude = student.longitude {
+            if  let latitude = student.latitude,let longitude = student.longitude{
                 let lat = CLLocationDegrees(latitude)
                 let long = CLLocationDegrees(longitude)
-                
+           
                 let coordinate =   CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
                 let firstName = student.firstName

@@ -60,11 +60,12 @@ class ListViewController:  UITableViewController {
         
         tableView.rowHeight = 55
         
-        if let firstname = info.firstName,let  lastname = info.lastName{
+         let firstname = info.firstName
+            let  lastname = info.lastName
             
             cell.name.text = "\(firstname)"+" "+"\(lastname)"
             cell.URL.text =  info.mediaURL
-        }
+        
         return cell
         
     }
