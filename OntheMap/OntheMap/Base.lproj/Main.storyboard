@@ -81,9 +81,7 @@
                                         <rightBarButtonItems>
                                             <barButtonItem title="addButton" image="icon_addpin" id="oNP-6L-jze">
                                                 <connections>
-                                                    <segue destination="WM7-0J-sBj" kind="popoverPresentation" popoverAnchorBarButtonItem="oNP-6L-jze" id="nSP-CY-f0A">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
+                                                    <action selector="addLocation:" destination="Tlw-L3-tcm" id="uft-Ya-vFg"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem title="refreshButton" image="icon_refresh" id="4mh-sl-TCO">
@@ -133,7 +131,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyF-6V-YvU">
-                                <rect key="frame" x="0.0" y="20" width="304" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="292" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Axd-xz-Rcf"/>
                                 </constraints>
@@ -155,7 +153,7 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KbA-td-0Pq">
-                                <rect key="frame" x="50" y="234" width="204" height="20"/>
+                                <rect key="frame" x="50" y="234" width="192" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="roA-zL-mpQ"/>
                                 </constraints>
@@ -164,7 +162,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z4n-iT-jfT">
-                                <rect key="frame" x="50" y="264" width="204" height="20"/>
+                                <rect key="frame" x="50" y="264" width="192" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3xa-wv-8ZZ"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="7bf-XR-Do4"/>
@@ -174,7 +172,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krK-A3-pu9">
-                                <rect key="frame" x="50" y="294" width="204" height="20"/>
+                                <rect key="frame" x="50" y="294" width="192" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="JcX-h2-UcH"/>
                                 </constraints>

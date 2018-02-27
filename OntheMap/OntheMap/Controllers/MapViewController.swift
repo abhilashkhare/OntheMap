@@ -19,26 +19,10 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         callstudentInformation()
-//        ParseClient.sharedInstance().getStudentInformation { (success, data, error) in
-//            if(error != nil)
-//            {
-//                print ("Error loading student data")
-//            }
-//
-//            else
-//            {
-//                studentLocation = data!["results"]  as? [String : AnyObject]
-//
-//
-//
-//
-//            }
-//        }
-        
-
     }
     
-   @IBAction func callstudentInformation()
+   
+    @IBAction func callstudentInformation()
     {
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
             
@@ -87,7 +71,6 @@ class MapViewController: UIViewController {
                 annotations.append(annotation)
     
             }
-        
             
             }
         
@@ -97,6 +80,35 @@ class MapViewController: UIViewController {
         
         
         }
+    
+    
+    @IBAction func addLocation(_ sender: Any) {
+        
+        if(userInformation.objectID == nil){
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+            self.present(controller, animated: true, completion: nil)
+        }
+        
+        else
+        {
+           displayAlert("User has already posted a student location. Would you like to OverWrite their location?")
+        
+    }
+    }
+    
+    func displayAlert( _ message : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+            self.present(controller, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

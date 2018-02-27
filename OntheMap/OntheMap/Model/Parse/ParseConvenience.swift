@@ -49,21 +49,37 @@ extension ParseClient
             }
             else
             {
-      
-                print(result!["results"])
-                if let  results = result!["results"]  as? [String : AnyObject]
-                    
-                {
-                    userInformation = studentInformation(dictionary: results)
-                    print(userInformation)
-                    print(userInformation.firstName)
-                }
-                completionHandlerForGetStudentInfo(true , result , nil)
                 
-             
+                var userLocation : studentInformation
+                var results = result!["results"]  as? [[String : AnyObject]]
+                userLocation = studentInformation(dictionary: (results?.popLast())!)
+                userInformation  = userLocation
+                
+                
+                completionHandlerForGetStudentInfo(true , result , nil)
             }
     }
  }
+    
+    func putStudentInformation( _ completionHandlerForPut : @ escaping(_ success : Bool , _ error : Error?) -> Void)
+    {
+        
+        
+        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName)\", \"lastName\": \"\(userInformation.lastName)\",\"mapString\": \"\(userInformation.mapString)\", \"mediaURL\": \"\(userInformation.mediaURL)\",\"latitude\": \"\(userInformation.latitude)\", \"longitude\": \"\(userInformation.longitude)\"}"
+        print(httpBody)
+        taskForPUTMethod(httpBody,userInformation.objectID!)
+        {(success,error) in
+            if let error = error
+            {
+                completionHandlerForPut(false,error)
+            }
+            else
+            {
+                completionHandlerForPut(true,nil)
+            }
+            
+        }
+    }
     
  
 }

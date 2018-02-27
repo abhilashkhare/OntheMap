@@ -36,6 +36,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                     self.annotation.coordinate = mapLocation.placemark.coordinate
                     self.lat = self.annotation.coordinate.latitude
                     self.long = self.annotation.coordinate.longitude
+                    self.annotation.title = mapLocation.name
                     self.mapView.addAnnotation(self.annotation)
                     let region = MKCoordinateRegion(center: self.annotation.coordinate, span: MKCoordinateSpanMake(0.005, 0.005))
                     self.mapView.region = region
@@ -49,9 +50,32 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     @IBAction func pressFinishButton(_ sender: Any) {
         
-
-        
+        if(userInformation.objectID == nil){
             
+        }
+            
+        else
+        {
+            performUIUpdatesOnMain {
+            
+            
+          ParseClient.sharedInstance().putStudentInformation()
+            {
+                (success,error) in
+                if(error !=  nil)
+                {
+                    print("Error posting location")
+                }
+                else
+                {
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! AddLocationViewController
+                    self.present(controller, animated: true, completion: nil)
+                }
+            }
+
+        }
+        
+        }
         
         
     }
