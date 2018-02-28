@@ -97,7 +97,7 @@ class ParseClient
     {
     
         var urlString  = "https://parse.udacity.com/parse/classes/StudentLocation/\(objectID)"
-    
+        print(urlString)
         let url = URL(string : urlString)
         var request = URLRequest(url: url!)
         request.httpMethod = "PUT"

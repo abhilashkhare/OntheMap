@@ -55,7 +55,6 @@ extension ParseClient
                 userLocation = studentInformation(dictionary: (results?.popLast())!)
                 userInformation  = userLocation
                 
-                
                 completionHandlerForGetStudentInfo(true , result , nil)
             }
     }
@@ -64,8 +63,8 @@ extension ParseClient
     func putStudentInformation( _ completionHandlerForPut : @ escaping(_ success : Bool , _ error : Error?) -> Void)
     {
         
-        
-        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName)\", \"lastName\": \"\(userInformation.lastName)\",\"mapString\": \"\(userInformation.mapString)\", \"mediaURL\": \"\(userInformation.mediaURL)\",\"latitude\": \"\(userInformation.latitude)\", \"longitude\": \"\(userInformation.longitude)\"}"
+   
+        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \"\(userInformation.latitude!)\", \"longitude\": \"\(userInformation.longitude!)\"}"
         print(httpBody)
         taskForPUTMethod(httpBody,userInformation.objectID!)
         {(success,error) in

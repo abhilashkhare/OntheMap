@@ -26,7 +26,6 @@ class AddLocationViewController: UIViewController {
     
     @IBAction func findLocation (_ sender : Any)
     {
-        print("findlocation")
         let url = URL(string : link.text!)
             
         if url?.scheme != "https"

@@ -60,14 +60,14 @@ class ListViewController:  UITableViewController {
         
         tableView.rowHeight = 55
         
-         let firstname = info.firstName
-            let  lastname = info.lastName
-            
+        if let firstname = info.firstName,let  lastname = info.lastName
+        {
             cell.name.text = "\(firstname)"+" "+"\(lastname)"
             cell.URL.text =  info.mediaURL
         
+        }
         return cell
-        
+
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -60,16 +60,15 @@ class MapViewController: UIViewController {
            
                 let coordinate =   CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
-                let firstName = student.firstName
-                let lastName = student.lastName
-                
+                if let firstName = student.firstName,let lastName = student.lastName
+                {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 annotation.title = "\(String(describing: firstName))" + " " + "\(String(describing: lastName))"
                 annotation.subtitle = student.mediaURL
                 
                 annotations.append(annotation)
-    
+                }
             }
             
             }
