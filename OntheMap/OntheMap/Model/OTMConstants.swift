@@ -16,6 +16,7 @@ public struct Constants
         static var long : Double = 0.0000
         static var location : String = ""
         static var uniqueKey : String = ""
+        static var url : String = ""
         
     }
 }

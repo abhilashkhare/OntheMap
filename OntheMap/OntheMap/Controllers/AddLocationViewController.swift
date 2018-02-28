@@ -40,8 +40,10 @@ class AddLocationViewController: UIViewController {
         else
             {
             Constants.StudentInformation.location = location.text!
+            Constants.StudentInformation.url = link.text!
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "UpdateLocationViewController")
                 self.present(controller!, animated: true, completion: nil)
+                
         }
         
     }

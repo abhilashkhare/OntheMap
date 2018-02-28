@@ -40,6 +40,10 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                     self.mapView.addAnnotation(self.annotation)
                     let region = MKCoordinateRegion(center: self.annotation.coordinate, span: MKCoordinateSpanMake(0.005, 0.005))
                     self.mapView.region = region
+                    userInformation.mediaURL = Constants.StudentInformation.url
+                    userInformation.latitude = self.annotation.coordinate.latitude
+                    userInformation.longitude = self.annotation.coordinate.longitude
+                    userInformation.mapString = mapLocation.name
                     
                 }
             }
