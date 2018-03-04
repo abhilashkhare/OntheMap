@@ -13,6 +13,8 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var finishButton : UIButton!
+  let activityIndicator = UIActivityIndicatorView()
+    
     let userLocation : String = Constants.StudentInformation.location
     var lat : CLLocationDegrees = 0.0
     var long : CLLocationDegrees = 0.0
@@ -51,10 +53,38 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
             
     }
     
+    @IBAction func cancel (_ sender : Any)
+    {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
     @IBAction func pressFinishButton(_ sender: Any) {
         
+        
         if(userInformation.objectID == nil){
+            performUIUpdatesOnMain {
+                self.displayActivityIndicator()
+                ParseClient.sharedInstance().postStudentInformation()
+                    {
+                        (success,error) in
+                        if(error !=  nil)
+                        {
+                            print("Error posting location")
+                            self.activityIndicator.stopAnimating()
+                        }
+                        else
+                        {
+                            self.activityIndicator.stopAnimating()
+                            print("Posted successfully")
+                            let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
+                            self.present(controller!, animated: true, completion: nil)
+                            
+                        }
+                }
+                
+            }
             
         }
             
@@ -62,18 +92,24 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         {
             performUIUpdatesOnMain {
             
-            
+                self.displayActivityIndicator()
+
           ParseClient.sharedInstance().putStudentInformation()
             {
                 (success,error) in
                 if(error !=  nil)
                 {
                     print("Error posting location")
+                    self.activityIndicator.stopAnimating()
                 }
                 else
                 {
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! AddLocationViewController
-                    self.present(controller, animated: true, completion: nil)
+                    performUIUpdatesOnMain {
+                        self.activityIndicator.stopAnimating()
+                    }
+                    print("Posted(PUT) successfully")
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
+                    self.present(controller!, animated: true, completion: nil)
                 }
             }
 
@@ -90,6 +126,17 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func displayActivityIndicator()
+    {
+       
+        activityIndicator.center = self.view.center
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
     }
 
 

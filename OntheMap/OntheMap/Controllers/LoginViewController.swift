@@ -13,7 +13,6 @@ class LoginViewController: UIViewController {
     @IBOutlet var username : UITextField!
     @IBOutlet var password : UITextField!
     @IBOutlet weak var errorTextArea: UITextView!
-   
     @IBAction func loginPressed(_ sender : AnyObject)
     {
         errorTextArea.text = ""
@@ -37,17 +36,13 @@ class LoginViewController: UIViewController {
                     
                     if(success == false){
                         print("Issue retrieving userinformation")
-                        //displayAlert("Error", "User account has issues", "OK")
-                    }
-                    else
-                    {
                         
                     }
                     
                 })
-                            }
+                    }
                 
-                        }
+            }
             
             }
         

@@ -14,7 +14,7 @@ class ParseClient
     let session = URLSession.shared
 
     
-    func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void)  {
         
       
         
@@ -57,7 +57,7 @@ class ParseClient
         /* 7. Start the request */
         task.resume()
         
-        return task
+   //     return task
     
     }
     
@@ -110,6 +110,7 @@ class ParseClient
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
+            print(String (data : data!, encoding : .utf8))
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -144,6 +145,60 @@ class ParseClient
         return task
         
     }
+    
+    func taskForPOSTMethod(_ httpBody : String , completionHandlerForPost : @escaping ( _ response : AnyObject? , _ error : Error?) -> Void)
+    {
+        var urlString  = "https://parse.udacity.com/parse/classes/StudentLocation"
+        
+        let url = URL( string : urlString)
+        var request  = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody.data(using: .utf8)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request)
+        { data,response,error in
+            
+            
+            print(String (data : data!, encoding : .utf8))
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForPost(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
+            }
+            
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            self.convertDataWithCompletionHandler(data, completionHandlerforConvertData : completionHandlerForPost)
+        }
+        
+        /* 7. Start the request */
+        task.resume()
+ 
+        
+    }
+    
+    
 
     
     

@@ -52,10 +52,13 @@ extension ParseClient
                 
                 var userLocation : studentInformation
                 var results = result!["results"]  as? [[String : AnyObject]]
-                userLocation = studentInformation(dictionary: (results?.popLast())!)
+                print(result)
+                print(results)
+                userLocation = studentInformation(dictionary: (results!.popLast())!)
                 userInformation  = userLocation
                 
                 completionHandlerForGetStudentInfo(true , result , nil)
+      
             }
     }
  }
@@ -64,7 +67,7 @@ extension ParseClient
     {
         
    
-        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \"\(userInformation.latitude!)\", \"longitude\": \"\(userInformation.longitude!)\"}"
+        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
         print(httpBody)
         taskForPUTMethod(httpBody,userInformation.objectID!)
         {(success,error) in
@@ -77,6 +80,23 @@ extension ParseClient
                 completionHandlerForPut(true,nil)
             }
             
+        }
+    }
+    
+    func postStudentInformation(_ completionHandlerForPost : @escaping (_ success : Bool , _ error : Error?) ->Void)
+    {
+             let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
+            taskForPOSTMethod(httpBody)
+            {(success,error) in
+                
+                if let error = error{
+                    completionHandlerForPost(false,error)
+                }
+                else
+                {
+                    completionHandlerForPost(true,nil)
+                }
+                
         }
     }
     
