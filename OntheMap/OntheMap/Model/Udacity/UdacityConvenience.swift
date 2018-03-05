@@ -24,7 +24,7 @@ extension UdacityClient{
                 {
                     if  let account = result!["account"] as? [String : AnyObject],let key = account["key"] as? String{
                          Constants.StudentInformation.uniqueKey = key
-
+                        print(Constants.StudentInformation.uniqueKey)
                         completionHandlerforAuth(true,result!,nil)
                     }
                 }

@@ -32,28 +32,14 @@ class LoginViewController: UIViewController {
             performUIUpdatesOnMain{
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
                                 self.present(controller, animated: true, completion: nil)
-                ParseClient.sharedInstance().getStudentInformation({ (success, result, error) in
-                    
-                    if(success == false){
-                        print("Issue retrieving userinformation")
-                        
                     }
-                    
-                })
-                    }
+                }
                 
             }
-            
-            }
-        
     
-   
-
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
 }
-}
+
     
 
 

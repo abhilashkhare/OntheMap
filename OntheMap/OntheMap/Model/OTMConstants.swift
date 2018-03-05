@@ -17,6 +17,8 @@ public struct Constants
         static var location : String = ""
         static var uniqueKey : String = ""
         static var url : String = ""
+        static var firstName : String = "First Name"
+        static var lastName : String = "Last Name"
         
     }
 }

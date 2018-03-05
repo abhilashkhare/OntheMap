@@ -68,7 +68,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                 self.displayActivityIndicator()
                 ParseClient.sharedInstance().postStudentInformation()
                     {
-                        (success,error) in
+                        (success,result,error) in
                         if(error !=  nil)
                         {
                             print("Error posting location")
@@ -76,7 +76,12 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                         }
                         else
                         {
-                            self.activityIndicator.stopAnimating()
+                            performUIUpdatesOnMain {
+                                self.activityIndicator.stopAnimating()
+                            }
+                            userInformation.objectID = result?["objectId"] as! String
+                            print(userInformation.objectID)
+                            
                             print("Posted successfully")
                             let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
                             self.present(controller!, animated: true, completion: nil)

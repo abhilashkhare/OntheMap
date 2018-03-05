@@ -22,7 +22,7 @@ class ParseClient
         var request = URLRequest(url: OTMURLFromParameters(parameters))
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-
+        print(request.url)
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
@@ -75,6 +75,7 @@ class ParseClient
             components.queryItems!.append(queryItem)
         }
         
+        print(components.url!)
         return components.url!
     }
 

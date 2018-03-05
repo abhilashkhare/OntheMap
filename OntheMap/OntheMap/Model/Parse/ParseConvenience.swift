@@ -52,13 +52,22 @@ extension ParseClient
                 
                 var userLocation : studentInformation
                 var results = result!["results"]  as? [[String : AnyObject]]
-                print(result)
-                print(results)
-                userLocation = studentInformation(dictionary: (results!.popLast())!)
+                
+              
+             
+                userLocation = studentInformation(dictionary: (results![0]))
                 userInformation  = userLocation
                 
-                completionHandlerForGetStudentInfo(true , result , nil)
-      
+                print(userInformation.firstName)
+                print(userInformation.lastName)
+                print(userInformation.latitude)
+                print(userInformation.longitude)
+                print(userInformation.mapString)
+                print(userInformation.mediaURL)
+
+                print(userInformation.objectID)
+                
+               
             }
     }
  }
@@ -83,18 +92,35 @@ extension ParseClient
         }
     }
     
-    func postStudentInformation(_ completionHandlerForPost : @escaping (_ success : Bool , _ error : Error?) ->Void)
+    func postStudentInformation(_ completionHandlerForPost : @escaping (_ success : Bool ,_ result : AnyObject?, _ error : Error?) ->Void)
     {
-             let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
+        print(Constants.StudentInformation.uniqueKey)
+        
+//        if (userInformation.firstName == nil || userInformation.lastName
+//             == nil)
+//        {
+//            userInformation.firstName = Constants.StudentInformation.firstName
+//            userInformation.lastName = Constants.StudentInformation.lastName
+//
+//        }
+//
+        print(userInformation.firstName)
+        print(userInformation.lastName)
+        print(userInformation.latitude)
+        print(userInformation.longitude)
+        print(userInformation.mapString)
+        print(userInformation.mediaURL)
+        
+        let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
             taskForPOSTMethod(httpBody)
-            {(success,error) in
+            {(result,error) in
                 
                 if let error = error{
-                    completionHandlerForPost(false,error)
+                    completionHandlerForPost(false,result,error)
                 }
                 else
                 {
-                    completionHandlerForPost(true,nil)
+                    completionHandlerForPost(true,result,nil)
                 }
                 
         }

@@ -20,10 +20,21 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         callstudentInformation()
+        ParseClient.sharedInstance().getStudentInformation({ (success, result, error) in
+            
+            if(success == false){
+                print("Issue retrieving userinformation")
+                
+            }
+            else
+            {
+                print(result)
+            }
+            
+        })
     }
-    
    
-    @IBAction func callstudentInformation()
+    func callstudentInformation()
     {
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
             

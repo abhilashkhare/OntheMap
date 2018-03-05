@@ -85,7 +85,7 @@
                                         <rightBarButtonItems>
                                             <barButtonItem title="addButton" image="icon_addpin" id="oNP-6L-jze">
                                                 <connections>
-                                                    <action selector="addLocation:" destination="Tlw-L3-tcm" id="uft-Ya-vFg"/>
+                                                    <action selector="addLocation:" destination="Tlw-L3-tcm" id="Owz-Aj-3f6"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem title="refreshButton" image="icon_refresh" id="4mh-sl-TCO">
