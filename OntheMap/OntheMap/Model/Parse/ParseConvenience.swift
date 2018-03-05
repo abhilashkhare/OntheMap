@@ -53,7 +53,7 @@ extension ParseClient
                 var userLocation : studentInformation
                 var results = result!["results"]  as? [[String : AnyObject]]
                 
-              
+                print(results?.count)
              
                 userLocation = studentInformation(dictionary: (results![0]))
                 userInformation  = userLocation

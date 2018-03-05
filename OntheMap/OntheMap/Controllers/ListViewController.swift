@@ -10,18 +10,18 @@ import UIKit
 import Foundation
 
 
-class ListViewController:  UITableViewController {
+class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDataSource {
 
    var studentInfo : [studentInformation] = []
 
-   
+    @IBOutlet var tableView : UITableView?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         displayList()
-        
     }
     
-    func displayList()
+    public func displayList()
     {
         
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
@@ -42,23 +42,27 @@ class ListViewController:  UITableViewController {
                 
                 if self.studentInfo.count != 0
                 {
-                    self.tableView.reloadData()
-                }
+                    print("count")
+                    print(self.studentInfo.count)
+         }
             }
          }
      })
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-   
-        return studentInfo.count    }
-
-    override  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
+        return studentInfo.count
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
+    }
+
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM", for : indexPath) as! ListCellOTM
         let info = studentInfo[(indexPath as NSIndexPath).row]
         
-        tableView.rowHeight = 55
+        tableView.rowHeight = 50
         
         if let firstname = info.firstName,let  lastname = info.lastName
         {
@@ -66,11 +70,18 @@ class ListViewController:  UITableViewController {
             cell.URL.text =  info.mediaURL
         
         }
+        performUIUpdatesOnMain {
+            
+            self.tableView?.reloadData()
+            
+        }
+
+        
         return cell
 
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       let info = studentInfo[(indexPath as NSIndexPath).row ]
         let url = URL( string : info.mediaURL!)
         
