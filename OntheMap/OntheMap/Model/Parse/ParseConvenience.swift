@@ -55,6 +55,8 @@ extension ParseClient
                 
                 print(results?.count)
              
+                if(results?.count != 0 )
+                {
                 userLocation = studentInformation(dictionary: (results![0]))
                 userInformation  = userLocation
                 
@@ -67,7 +69,7 @@ extension ParseClient
 
                 print(userInformation.objectID)
                 
-               
+                }
             }
     }
  }
