@@ -16,12 +16,18 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
 
     @IBOutlet var tableView : UITableView?
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         displayList()
+
+        
     }
     
-    public func displayList()
+    override func viewDidLoad() {
+    }
+    
+    func displayList()
     {
         
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
@@ -44,22 +50,24 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
                 {
                     print("count")
                     print(self.studentInfo.count)
-         }
+                    performUIUpdatesOnMain {
+                        
+                        self.tableView?.reloadData()
+                    }
+                    
+                }
             }
          }
      })
     }
     
-    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-        return studentInfo.count
-        
-    }
+   
+        return studentInfo.count    }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM", for : indexPath) as! ListCellOTM
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
         let info = studentInfo[(indexPath as NSIndexPath).row]
         
         tableView.rowHeight = 50
@@ -70,13 +78,6 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
             cell.URL.text =  info.mediaURL
         
         }
-        performUIUpdatesOnMain {
-            
-            self.tableView?.reloadData()
-            
-        }
-
-        
         return cell
 
     }
