@@ -16,6 +16,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
 
     @IBOutlet var tableView : UITableView?
     
+    @IBOutlet weak var image: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -70,7 +71,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
         let info = studentInfo[(indexPath as NSIndexPath).row]
         
-        tableView.rowHeight = 50
+        tableView.rowHeight = 70
         
         if let firstname = info.firstName,let  lastname = info.lastName
         {
