@@ -70,6 +70,12 @@ extension ParseClient
                 print(userInformation.objectID)
                 
                 }
+                else
+                {
+                    UdacityClient.sharedInstance().getPublicData(Constants.StudentInformation.uniqueKey) { (success, result, error) in
+                        print("callpublicdata")
+                    }
+                }
             }
     }
  }

@@ -12,7 +12,7 @@ import UIKit
 class UdacityClient{
     
 
-    func taskforPOSTmethod(_ username : String, _ password : String,completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask{
+    func taskforPOSTmethod(_ username : String, _ password : String,completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: String?) -> Void) {
         
         /* 2/3. Build the URL, Configure the request */
         var request = URLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
@@ -59,10 +59,53 @@ class UdacityClient{
         
         /* 7. Start the request */
         task.resume()
-        
-        return task
 
         }
+    
+    public func taskForGETMethodUdacity(_ userid : String,completionHandlerForTaskForGetMethod : @escaping(_ results : AnyObject?,_ error : String?) ->Void)
+    {
+        let urlString = "https://www.udacity.com/api/users/\(userid)"
+        let url = URL(string : urlString)
+        let request =  URLRequest(url: url!)
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request as URLRequest){
+            (data,response,error) in
+           
+            func sendError(_ error: String) {
+                completionHandlerForTaskForGetMethod("NULL" as AnyObject, error)
+            }
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            let range = Range(5..<data.count)
+            let newData = data.subdata(in: range) /* subset response data! */
+            print(String(data: newData, encoding: .utf8)!)
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            self.convertDataWithCompletionHandler(newData, completionHandlerforConvertData: completionHandlerForTaskForGetMethod)
+        }
+        
+        /* 7. Start the request */
+        task.resume()
+            
+        }
+        
+        
+    
     
     func convertDataWithCompletionHandler(_ data : Data, completionHandlerforConvertData : (_ result : AnyObject?, _ error : String?) -> Void )
     {
@@ -76,6 +119,7 @@ class UdacityClient{
         completionHandlerforConvertData(parsedResult, nil)
         
     }
+ 
     class func sharedInstance() -> UdacityClient {
         struct Singleton {
             static var sharedInstance = UdacityClient()

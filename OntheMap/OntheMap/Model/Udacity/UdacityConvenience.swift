@@ -78,6 +78,31 @@ extension UdacityClient{
     }
     task.resume()
 }
+    
+    
+    public func getPublicData(_ uniqueID: String, completionHandlerForGetPublicData : @escaping (_ success : Bool, _ result : String, _ error : String?) -> Void)
+    {
+        taskForGETMethodUdacity(uniqueID) { (result, error) in
+            performUIUpdatesOnMain {
+                if error != nil
+                {
+                    print("Error getting public data")
+                //    completionHandlerForGetPublicData(false,result! as! String,error)
+                }
+                else
+                {
+                   if let result = result!["user"] as AnyObject?
+                   {
+                    print(result)
+                    }
+                }
+                
+                
+                
+            }
+            
+        }
+    }
 
 }
 

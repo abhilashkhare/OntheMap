@@ -28,7 +28,9 @@ class MapViewController: UIViewController {
             }
             else
             {
-                print(result)
+                UdacityClient.sharedInstance().getPublicData(userInformation.uniqueKey!) { (success, result, error) in
+                    print ("callsuccess")
+                }
             }
             
         })
