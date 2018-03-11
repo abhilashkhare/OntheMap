@@ -123,7 +123,7 @@ class MapViewController: UIViewController {
         {
            displayAlert("User has already posted a student location. Would you like to OverWrite their location?")
         
-    }
+        }
     }
     
     @IBAction func refresh(_ sender : Any)

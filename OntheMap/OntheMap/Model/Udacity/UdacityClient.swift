@@ -94,7 +94,6 @@ class UdacityClient{
             }
             let range = Range(5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
-            print(String(data: newData, encoding: .utf8)!)
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(newData, completionHandlerforConvertData: completionHandlerForTaskForGetMethod)
         }

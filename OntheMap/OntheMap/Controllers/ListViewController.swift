@@ -62,6 +62,50 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
      })
     }
     
+    @IBAction func refresh(_ sender : Any)
+    {
+        displayList()
+    }
+    
+    @IBAction func addLocation(_ sender: Any) {
+        
+        if(userInformation.objectID == nil){
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+            self.present(controller, animated: true, completion: nil)
+        }
+            
+        else
+        {
+            displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
+            
+        }
+    }
+    
+    @IBAction  func logOut(_ sender : Any)
+    {
+        performUIUpdatesOnMain {
+            
+            
+            UdacityClient.sharedInstance().logOutFunction { (data, error) in
+                if error != nil
+                {
+                    let alert = UIAlertController(title:"Log off Error", message: "Could not log out", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Log off Error", style: .default, handler: { (action) in
+                        alert.dismiss(animated: true, completion: nil)
+                        
+                    }))
+                }
+                else{
+                    print("Log off successful")
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                    self.present(controller!, animated: true, completion: nil)
+                    
+                }
+                
+            }
+        }
+    }
+    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
    
         return studentInfo.count    }
@@ -100,6 +144,20 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         
         
     }
+    
+    func displayAlertPop( _ message : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+            self.present(controller, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
     func displayAlert(_ title : String, _ message : String , _ action : String)
     {

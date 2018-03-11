@@ -91,9 +91,20 @@ extension UdacityClient{
                 }
                 else
                 {
-                   if let result = result!["user"] as AnyObject?
+                    if let user = result!["user"] as! [String:AnyObject]?
                    {
-                    print(result)
+                    performUIUpdatesOnMain {
+                        if let lastName = user["last_name"] as! String?
+                        {
+                        userInformation.lastName = lastName
+                        }
+                        
+                        if let firstName = user["first_name"] as! String?
+                        {
+                            userInformation.firstName = firstName
+                            print(firstName)
+                        }
+                    }
                     }
                 }
                 
