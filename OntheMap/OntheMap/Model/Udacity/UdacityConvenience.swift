@@ -102,7 +102,6 @@ extension UdacityClient{
                         if let firstName = user["first_name"] as! String?
                         {
                             userInformation.firstName = firstName
-                            print(firstName)
                         }
                     }
                     }

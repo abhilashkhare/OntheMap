@@ -47,7 +47,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-u" translatesAutoresizingMaskIntoConstraints="NO" id="UOL-Tb-mcv">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-u" translatesAutoresizingMaskIntoConstraints="NO" id="UOL-Tb-mcv">
                                 <rect key="frame" x="120" y="110" width="80" height="83"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="TfJ-b8-fxR"/>
@@ -176,7 +176,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyF-6V-YvU">
-                                <rect key="frame" x="0.0" y="20" width="292" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="288" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Axd-xz-Rcf"/>
                                 </constraints>
@@ -190,15 +190,15 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="oWp-bS-7q1">
-                                <rect key="frame" x="126" y="193" width="27" height="23"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="oWp-bS-7q1">
+                                <rect key="frame" x="110" y="170" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="84X-vl-UK3"/>
-                                    <constraint firstAttribute="width" constant="40" id="PY1-8D-57c"/>
+                                    <constraint firstAttribute="height" constant="50" id="84X-vl-UK3"/>
+                                    <constraint firstAttribute="width" constant="50" id="PY1-8D-57c"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KbA-td-0Pq">
-                                <rect key="frame" x="50" y="234" width="192" height="20"/>
+                                <rect key="frame" x="50" y="250" width="188" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="roA-zL-mpQ"/>
                                 </constraints>
@@ -207,7 +207,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z4n-iT-jfT">
-                                <rect key="frame" x="50" y="264" width="192" height="20"/>
+                                <rect key="frame" x="50" y="280" width="188" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3xa-wv-8ZZ"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="7bf-XR-Do4"/>
@@ -217,11 +217,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krK-A3-pu9">
-                                <rect key="frame" x="50" y="294" width="192" height="20"/>
+                                <rect key="frame" x="50" y="310" width="188" height="20"/>
+                                <color key="backgroundColor" red="0.1405489053" green="0.83540723829999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="JcX-h2-UcH"/>
                                 </constraints>
-                                <state key="normal" title="Find Location"/>
+                                <state key="normal" title="Find Location">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="findLocation:" destination="WM7-0J-sBj" eventType="touchUpInside" id="BDb-9B-nLu"/>
                                 </connections>
@@ -233,16 +236,16 @@
                             <constraint firstItem="GFJ-hq-117" firstAttribute="trailing" secondItem="Z4n-iT-jfT" secondAttribute="trailing" constant="50" id="69s-uO-UhK"/>
                             <constraint firstItem="zyF-6V-YvU" firstAttribute="trailing" secondItem="GFJ-hq-117" secondAttribute="trailing" id="8FZ-dG-59g"/>
                             <constraint firstItem="GFJ-hq-117" firstAttribute="trailing" secondItem="krK-A3-pu9" secondAttribute="trailing" constant="50" id="8JP-2S-M4w"/>
-                            <constraint firstItem="oWp-bS-7q1" firstAttribute="leading" secondItem="GFJ-hq-117" secondAttribute="leading" constant="126" id="BSi-ed-HHL"/>
                             <constraint firstItem="Z4n-iT-jfT" firstAttribute="top" secondItem="KbA-td-0Pq" secondAttribute="bottom" constant="10" id="Nkd-GA-qu1"/>
+                            <constraint firstItem="oWp-bS-7q1" firstAttribute="top" secondItem="zyF-6V-YvU" secondAttribute="bottom" constant="110" id="W5Q-mG-JDk"/>
                             <constraint firstItem="zyF-6V-YvU" firstAttribute="top" secondItem="GFJ-hq-117" secondAttribute="top" id="ZvR-HL-nl2"/>
                             <constraint firstItem="KbA-td-0Pq" firstAttribute="top" secondItem="oWp-bS-7q1" secondAttribute="bottom" constant="20" id="aNJ-eo-kjb"/>
                             <constraint firstItem="krK-A3-pu9" firstAttribute="top" secondItem="Z4n-iT-jfT" secondAttribute="bottom" constant="10" id="eRT-Zk-lhl"/>
-                            <constraint firstItem="oWp-bS-7q1" firstAttribute="top" secondItem="zyF-6V-YvU" secondAttribute="bottom" constant="104" id="g8E-fo-APF"/>
                             <constraint firstItem="GFJ-hq-117" firstAttribute="trailing" secondItem="oWp-bS-7q1" secondAttribute="trailing" constant="126" id="krT-8e-Sp2"/>
                             <constraint firstItem="Z4n-iT-jfT" firstAttribute="leading" secondItem="GFJ-hq-117" secondAttribute="leading" constant="50" id="oYF-sg-p9v"/>
                             <constraint firstItem="KbA-td-0Pq" firstAttribute="leading" secondItem="GFJ-hq-117" secondAttribute="leading" constant="50" id="pmo-MG-2Ma"/>
                             <constraint firstItem="GFJ-hq-117" firstAttribute="trailing" secondItem="KbA-td-0Pq" secondAttribute="trailing" constant="50" id="tW7-WJ-eAH"/>
+                            <constraint firstItem="oWp-bS-7q1" firstAttribute="leading" secondItem="GFJ-hq-117" secondAttribute="leading" constant="110" id="vop-wq-0D1"/>
                             <constraint firstItem="krK-A3-pu9" firstAttribute="leading" secondItem="GFJ-hq-117" secondAttribute="leading" constant="50" id="yGp-dv-PqX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GFJ-hq-117"/>
@@ -356,20 +359,20 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="On the Map" id="oOZ-O4-Qel">
-                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Avj-Xh-mdR">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="PTI-CN-kUt">
                                             <connections>
-                                                <action selector="logOut:" destination="uH2-a4-Hh0" id="Wk8-lR-pkn"/>
+                                                <action selector="logOut:" destination="uH2-a4-Hh0" id="0NR-SO-6QE"/>
                                             </connections>
                                         </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="addButton" image="icon_addpin" id="4gY-De-HBc">
                                                 <connections>
-                                                    <action selector="addLocation:" destination="uH2-a4-Hh0" id="F39-SP-O7w"/>
+                                                    <action selector="addLocation:" destination="uH2-a4-Hh0" id="CTU-6a-dfc"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="refresh" image="icon_refresh" id="jGw-0j-Rhl">
+                                            <barButtonItem title="refresh" image="icon_refresh" id="22b-xl-cg5">
                                                 <connections>
-                                                    <action selector="refresh:" destination="uH2-a4-Hh0" id="uA9-Ra-BzC"/>
+                                                    <action selector="refresh:" destination="uH2-a4-Hh0" id="mPk-VO-MrI"/>
                                                 </connections>
                                             </barButtonItem>
                                         </rightBarButtonItems>
@@ -401,7 +404,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_pin" translatesAutoresizingMaskIntoConstraints="NO" id="zw7-t1-ccO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_pin" translatesAutoresizingMaskIntoConstraints="NO" id="zw7-t1-ccO">
                                                     <rect key="frame" x="39" y="9" width="49" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
