@@ -97,8 +97,9 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
                 }
                 else{
                     print("Log off successful")
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-                    self.present(controller!, animated: true, completion: nil)
+                    performUIUpdatesOnMain {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                     
                 }
                 

@@ -9,9 +9,9 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController,MKMapViewDelegate {
     
-    @IBOutlet  var map : MKMapView!
+    @IBOutlet  var mapView : MKMapView!
    
     var refresh = 0
     var annotations = [MKPointAnnotation]()
@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
         ParseClient.sharedInstance().getStudentInformation({ (success, result, error) in
             
             if(success == false){
-                print("Issue retrieving userinformation")
+                self.displayErrorAlert(error!)
                 
             }
             else
@@ -34,6 +34,16 @@ class MapViewController: UIViewController {
             }
             
         })
+    }
+    
+    func displayErrorAlert(_ error : String)
+    {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        
     }
    
     func callstudentInformation()
@@ -66,19 +76,15 @@ class MapViewController: UIViewController {
     
     func markPins(_ studentinfo : [studentInformation], _ refresh : Int)
     {
-        
         performUIUpdatesOnMain {
             if(refresh == 1)
             {
-                let annotationRefresh = self.map.annotations
+                let annotationRefresh = self.mapView.annotations
                 
                 for i in annotationRefresh{
-                    self.map.removeAnnotation(i)
+                    self.mapView.removeAnnotation(i)
                 }
-                
                 print ("annotations removed after refresh")
-                
-                
             }
             
         }
@@ -95,21 +101,47 @@ class MapViewController: UIViewController {
                 {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
-                annotation.title = "\(String(describing: firstName))" + " " + "\(String(describing: lastName))"
+                annotation.title = "\(firstName) \(lastName)"
                 annotation.subtitle = student.mediaURL
                 
                 annotations.append(annotation)
                 }
             }
-            
-            }
-        
+        }
         performUIUpdatesOnMain {
-            self.map.addAnnotations(self.annotations)
+            self.mapView.addAnnotations(self.annotations)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .infoLight)
+        }
+        else {
+            pinView!.annotation = annotation
         }
         
-        
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            
+            if let toOpen = view.annotation?.subtitle! {
+                let url = URL(string : toOpen)
+                UIApplication.shared.open(url!)
+            }
         }
+    }
+    
     
     
     @IBAction func addLocation(_ sender: Any) {
@@ -185,8 +217,12 @@ class MapViewController: UIViewController {
             }
             else{
                 print("Log off successful")
-                let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-                self.present(controller!, animated: true, completion: nil)
+                performUIUpdatesOnMain {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+                //let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+             //   self.present(controller!, animated: true, completion: nil)
                 
             }
 
@@ -197,6 +233,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
     }
     
     }
