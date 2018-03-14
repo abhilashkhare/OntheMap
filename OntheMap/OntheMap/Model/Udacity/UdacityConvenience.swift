@@ -16,7 +16,7 @@ extension UdacityClient{
         taskforPOSTmethod(username,password){
             (result,error) in performUIUpdatesOnMain {
             
-                if (error != nil) && (error == "Your request returned a status code other than 2xx!"){
+                if (error != nil) {
                     completionHandlerforAuth(false,result!,error!)
                     
                 }

@@ -8,16 +8,13 @@
 
 import UIKit
 
-class AddLocationViewController: UIViewController {
+class AddLocationViewController: UIViewController,UITextFieldDelegate {
 
     
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var link: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-     
-    }
+  
     @IBAction func cancel (_ sender : Any)
 {
     self.dismiss(animated: true, completion: nil)
@@ -54,6 +51,49 @@ class AddLocationViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        location.delegate = self
+        link.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(true)
+        
+        NotificationCenter.default.removeObserver(self,  name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self,  name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification : NSNotification)
+    {
+            let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
+
+    }
+    
+    
+    @objc func keyboardWillHide(notification : NSNotification)
+    {
+      
+            self.view.frame.origin.y = 0
+        
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     

@@ -37,6 +37,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
             if(error != nil)
             {
                 print ("Error loading student data")
+                self.displayAlert("Error", error!, "Cancel")
             }
             else
             {
@@ -163,7 +164,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
     func displayAlert(_ title : String, _ message : String , _ action : String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: action, style: .default, handler: {action in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
     }
     

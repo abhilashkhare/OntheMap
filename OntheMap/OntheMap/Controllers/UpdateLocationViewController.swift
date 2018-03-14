@@ -62,10 +62,10 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     @IBAction func pressFinishButton(_ sender: Any) {
         
-        
+        self.displayActivityIndicator()
         if(userInformation.objectID == nil){
             performUIUpdatesOnMain {
-                self.displayActivityIndicator()
+                
                 ParseClient.sharedInstance().postStudentInformation()
                     {
                         (success,result,error) in
@@ -73,12 +73,11 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                         {
                             print("Error posting location")
                             self.activityIndicator.stopAnimating()
+                            self.displayAlert("Error", "Error POSTING request", "Dismiss")
                         }
                         else
                         {
-                            performUIUpdatesOnMain {
-                                self.activityIndicator.stopAnimating()
-                            }
+                         
                             userInformation.objectID = result?["objectId"] as! String
                             print(userInformation.objectID)
                             
@@ -97,7 +96,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         {
             performUIUpdatesOnMain {
             
-                self.displayActivityIndicator()
+                
 
           ParseClient.sharedInstance().putStudentInformation()
             {
@@ -106,6 +105,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                 {
                     print("Error posting location")
                     self.activityIndicator.stopAnimating()
+                    self.displayAlert("Error", "Error Postig request", "Dismiss")
                 }
                 else
                 {
@@ -129,7 +129,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     func displayAlert(_ title : String, _ message : String , _ action : String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: action, style: .default, handler: {action in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
     }
     

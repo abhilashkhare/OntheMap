@@ -16,7 +16,7 @@ extension ParseClient
     func getStudentsInformation(_ completionHandlerForGetStudentsInfo : @ escaping (_ success : Bool, _ result : AnyObject?, _ errorString : String?) ->  Void)
     {
         /* 1. Set the parameters */
-        let parameters = ["limit":100] as [String : AnyObject]
+        let parameters = ["limit":100,"order" : "-updatedAt"] as [String : AnyObject]
         
         /* 2/3. Build the URL, Configure the request */
         taskForGETMethod(parameters: parameters) { (result, error) in
