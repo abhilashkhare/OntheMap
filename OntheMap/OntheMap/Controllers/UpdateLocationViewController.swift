@@ -25,10 +25,17 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         super.viewDidLoad()
         let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = userLocation
+        displayActivityIndicator()
+        
+        //ActivityIndicator starts just before geocoding starts
+        activityIndicator.startAnimating()
         
         let searchLocation = MKLocalSearch(request: searchRequest)
         searchLocation.start(completionHandler: {(response,error) in performUIUpdatesOnMain {
+           
+
             if let error = error {
+                self.activityIndicator.stopAnimating()
                 self.finishButton.isEnabled = false
                 self.displayAlert("Location not found", "Location not Found", "OK")
             }
@@ -46,8 +53,10 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                     userInformation.latitude = self.annotation.coordinate.latitude
                     userInformation.longitude = self.annotation.coordinate.longitude
                     userInformation.mapString = mapLocation.name
-                    
+                   
                 }
+                //Stopping activityIndicator after geocoding is complete
+                self.activityIndicator.stopAnimating()
             }
             }})
             
@@ -61,18 +70,17 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     
     @IBAction func pressFinishButton(_ sender: Any) {
-        
-        self.displayActivityIndicator()
+        activityIndicator.startAnimating()
         if(userInformation.objectID == nil){
             performUIUpdatesOnMain {
                 
                 ParseClient.sharedInstance().postStudentInformation()
                     {
                         (success,result,error) in
+                        self.activityIndicator.stopAnimating()
                         if(error !=  nil)
                         {
                             print("Error posting location")
-                            self.activityIndicator.stopAnimating()
                             self.displayAlert("Error", "Error POSTING request", "Dismiss")
                         }
                         else
@@ -82,7 +90,9 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                             print(userInformation.objectID)
                             
                             print("Posted successfully")
-                            let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
+                            
+                            
+                          let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
                             self.present(controller!, animated: true, completion: nil)
                             
                         }
@@ -104,14 +114,10 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                 if(error !=  nil)
                 {
                     print("Error posting location")
-                    self.activityIndicator.stopAnimating()
                     self.displayAlert("Error", "Error Postig request", "Dismiss")
                 }
                 else
                 {
-                    performUIUpdatesOnMain {
-                        self.activityIndicator.stopAnimating()
-                    }
                     print("Posted(PUT) successfully")
                     let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
                     self.present(controller!, animated: true, completion: nil)
@@ -141,7 +147,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
         
-        activityIndicator.startAnimating()
+
     }
 
 

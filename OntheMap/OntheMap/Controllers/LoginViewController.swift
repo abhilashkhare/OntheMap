@@ -14,6 +14,9 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
     @IBOutlet var password : UITextField!
     @IBOutlet weak var errorTextArea: UITextView!
     
+    let activityIndicator = UIActivityIndicatorView()
+    
+    
     @IBAction func signUpPressed( _ sender : Any)
     {
         let url = URL(string : "https://auth.udacity.com/sign-up")
@@ -25,10 +28,11 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         errorTextArea.text = ""
         let usernameText = username.text!
         let passwordtext = password.text!
-        
+        activityIndicator.startAnimating()
         UdacityClient.sharedInstance().authentication(self, usernameText, passwordtext) { (success, data, error) in
             if(success == false)
             {
+            self.activityIndicator.stopAnimating()
            if error == "Your request returned a status code other than 2xx!"
            {
             performUIUpdatesOnMain{
@@ -44,6 +48,7 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
             }
             else
             {
+                self.activityIndicator.stopAnimating()
             performUIUpdatesOnMain{
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
                                 self.present(controller, animated: true, completion: nil)
@@ -54,8 +59,21 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
     
     }
     
+    func displayActivityIndicator()
+    {
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        
+        
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        displayActivityIndicator()
         password.delegate = self
         username.delegate = self
     }
@@ -81,20 +99,20 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         if(password.isFirstResponder)
         {
             
-            let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
-            
+       //     let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        //    self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
         }
+        
     }
     
     
     @objc func keyboardWillHide(notification : NSNotification)
     {
-        if(password.isFirstResponder==true)
+        if(password.isFirstResponder)
         {
-            self.view.frame.origin.y = 0
-            
+        //    self.view.frame.origin.y = 0
         }
+        
     }
     
     

@@ -111,7 +111,8 @@ class ParseClient
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
-            print(String (data : data!, encoding : .utf8))
+            
+            
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -164,7 +165,6 @@ class ParseClient
         { data,response,error in
             
             
-            print(String (data : data!, encoding : .utf8))
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]

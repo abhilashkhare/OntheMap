@@ -29,7 +29,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             else
             {
                 UdacityClient.sharedInstance().getPublicData(userInformation.uniqueKey!) { (success, result, error) in
-                    print ("callsuccess")
+                    debugPrint ("callsuccess")
                 }
             }
             
@@ -59,16 +59,14 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             {
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
                 
-                var studentInfo : [studentInformation] = []
-                
                 for student in studentsArray!
-                {                    
-                    studentInfo.append(studentInformation(dictionary : student))
+                {
+                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary: student))
                 }
                 
                 if studentsArray?.count != 0
                 {
-                    self.markPins(studentInfo,0)
+                    self.markPins(SharedData.sharedInstance.StudentLocations,0)
                 }
             }
         })
@@ -153,7 +151,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         else
         {
-           displayAlert("User has already posted a student location. Would you like to OverWrite their location?")
+           displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
         
         }
     }
@@ -164,30 +162,29 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             
             if(error != nil)
             {
-                print ("Error loading student data")
+                self.displayAlert("Error", error!, "Cancel")
             }
                 
             else
             {
+   
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
-                
-                var studentInfo : [studentInformation] = []
                 
                 for student in studentsArray!
                 {
-                    studentInfo.append(studentInformation(dictionary : student))
+                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary: student))
                 }
                 
                 if studentsArray?.count != 0
                 {
-                    self.markPins(studentInfo,1)
+                    self.markPins(SharedData.sharedInstance.StudentLocations,1)
                 }
             }
         })
     }
     
     
-    func displayAlert( _ message : String)
+    func displayAlertPop( _ message : String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
@@ -199,7 +196,13 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
+    func displayAlert(_ title : String, _ message : String , _ action : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: action, style: .default, handler: {action in alert.dismiss(animated: true, completion: nil)}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
 @IBAction  func logOut(_ sender : Any)
     {
@@ -216,7 +219,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 }))
             }
             else{
-                print("Log off successful")
+                debugPrint("Log off successful")
                 performUIUpdatesOnMain {
                     self.dismiss(animated: true, completion: nil)
                 }

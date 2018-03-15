@@ -12,7 +12,7 @@ import Foundation
 
 class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDataSource {
 
-   var studentInfo : [studentInformation] = []
+ //  var studentInfo : [studentInformation] = []
 
     @IBOutlet var tableView : UITableView?
     
@@ -45,13 +45,14 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         
                 for student in studentsArray!
                 {
-                    self.studentInfo.append(studentInformation(dictionary : student))
+//                    self.studentInfo.append(studentInformation(dictionary : student))
+                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary : student))
                 }
                 
-                if self.studentInfo.count != 0
+                if SharedData.sharedInstance.StudentLocations.count != 0
                 {
                     print("count")
-                    print(self.studentInfo.count)
+                    print(SharedData.sharedInstance.StudentLocations.count)
                     performUIUpdatesOnMain {
                         
                         self.tableView?.reloadData()
@@ -110,12 +111,12 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
    
-        return studentInfo.count    }
+        return SharedData.sharedInstance.StudentLocations.count    }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
-        let info = studentInfo[(indexPath as NSIndexPath).row]
+        let info = SharedData.sharedInstance.StudentLocations[(indexPath as NSIndexPath).row]
         
         tableView.rowHeight = 70
         
@@ -130,7 +131,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      let info = studentInfo[(indexPath as NSIndexPath).row ]
+      let info = SharedData.sharedInstance.StudentLocations[(indexPath as NSIndexPath).row ]
         let url = URL( string : info.mediaURL!)
         
         if url?.scheme != "https"

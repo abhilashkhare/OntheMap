@@ -62,9 +62,9 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddLocationViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddLocationViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,6 +77,8 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
     
     @objc func keyboardWillShow(notification : NSNotification)
     {
+      
+            
             let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
             self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
 
