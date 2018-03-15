@@ -21,6 +21,8 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     let link : String = ""
     let annotation = MKPointAnnotation()
     
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let searchRequest = MKLocalSearchRequest()
@@ -85,15 +87,11 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                         }
                         else
                         {
-                         
                             userInformation.objectID = result?["objectId"] as! String
                             print(userInformation.objectID)
+                            debugPrint("Posted successfully")
                             
-                            print("Posted successfully")
-                            
-                            
-                          let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
-                            self.present(controller!, animated: true, completion: nil)
+                       self.navigationController?.popToRootViewController(animated: true)
                             
                         }
                 }
@@ -119,8 +117,17 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                 else
                 {
                     print("Posted(PUT) successfully")
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
-                    self.present(controller!, animated: true, completion: nil)
+//                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
+//                    self.present(controller!, animated: true, completion: nil)
+                  
+                    performUIUpdatesOnMain {
+                    //    self.addLocation.dismiss(animated: true, completion: nil)
+                        print(self.navigationController?.popToRootViewController)
+                        self.navigationController?.popToRootViewController(animated: true)
+
+
+                    }
+
                 }
             }
 

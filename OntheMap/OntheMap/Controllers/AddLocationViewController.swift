@@ -39,7 +39,9 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
             Constants.StudentInformation.location = location.text!
             Constants.StudentInformation.url = link.text!
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "UpdateLocationViewController")
-                self.present(controller!, animated: true, completion: nil)
+                self.present(controller!, animated: true, completion: {() -> Void in
+                  
+                })
                 
         }
         
@@ -58,6 +60,8 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
         location.delegate = self
         link.delegate = self
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -80,7 +84,7 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
       
             
             let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
+            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!/2
 
     }
     

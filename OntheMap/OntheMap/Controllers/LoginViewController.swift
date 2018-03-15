@@ -51,7 +51,7 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
                 self.activityIndicator.stopAnimating()
             performUIUpdatesOnMain{
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
-                                self.present(controller, animated: true, completion: nil)
+                           self.present(controller, animated: true, completion: nil)
                     }
                 }
                 
@@ -96,22 +96,15 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
     
     @objc func keyboardWillShow(notification : NSNotification)
     {
-        if(password.isFirstResponder)
-        {
-            
-       //     let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-        //    self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!
-        }
-        
+            let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!/2
     }
     
     
     @objc func keyboardWillHide(notification : NSNotification)
     {
-        if(password.isFirstResponder)
-        {
-        //    self.view.frame.origin.y = 0
-        }
+       
+            self.view.frame.origin.y = 0
         
     }
     

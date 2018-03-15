@@ -25,9 +25,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         
     }
     
-    override func viewDidLoad() {
-    }
-    
+  
     func displayList()
     {
         

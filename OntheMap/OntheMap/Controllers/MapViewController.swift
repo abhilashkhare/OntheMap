@@ -146,7 +146,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         if(userInformation.objectID == nil){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-            self.present(controller, animated: true, completion: nil)
+            self.navigationController?.pushViewController(controller, animated: true)
+          //  self.present(controller, animated: true, completion: nil)
         }
         
         else
@@ -189,7 +190,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-            self.present(controller, animated: true, completion: nil)
+         //   self.present(controller, animated: true, completion: nil)
+             self.navigationController?.pushViewController(controller, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
@@ -237,7 +239,14 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        
+//        let rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
+//        UIApplication.shared.keyWindow?.rootViewController = rootViewController
+//        
+        
     }
+    
+    
     
     }
     
