@@ -15,11 +15,11 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var link: UITextField!
     
   
-    @IBAction func cancel (_ sender : Any)
-{
-    self.dismiss(animated: true, completion: nil)
+
+    @IBAction func cancel ( _ sender : Any)
+    {
+        self.dismiss(animated: true, completion: nil)
     }
-    
     
     @IBAction func findLocation (_ sender : Any)
     {
@@ -39,9 +39,7 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
             Constants.StudentInformation.location = location.text!
             Constants.StudentInformation.url = link.text!
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "UpdateLocationViewController")
-                self.present(controller!, animated: true, completion: {() -> Void in
-                  
-                })
+                self.navigationController?.pushViewController(controller!, animated: true)
                 
         }
         
@@ -59,12 +57,16 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         location.delegate = self
         link.delegate = self
+        self.title = "Add Location"
+        self.navigationController?.toolbar.isHidden = true
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.isHidden = true
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddLocationViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         

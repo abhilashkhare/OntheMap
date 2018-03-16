@@ -16,13 +16,12 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
 
     @IBOutlet var tableView : UITableView?
     
-    @IBOutlet weak var image: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.isHidden = false
         displayList()
-
-        
+    
     }
     
   
@@ -151,7 +150,8 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-            self.present(controller, animated: true, completion: nil)
+            self.navigationController?.pushViewController(controller, animated: true)
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)

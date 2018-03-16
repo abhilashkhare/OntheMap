@@ -19,6 +19,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        self.tabBarController?.tabBar.isHidden = false
         callstudentInformation()
         ParseClient.sharedInstance().getStudentInformation({ (success, result, error) in
             
@@ -144,6 +146,11 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     
     @IBAction func addLocation(_ sender: Any) {
         
+        performUIUpdatesOnMain {
+            
+        
+        
+       // let navigationController = UINavigationController(rootViewController: MapViewController())
         if(userInformation.objectID == nil){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
             self.navigationController?.pushViewController(controller, animated: true)
@@ -152,8 +159,9 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         else
         {
-           displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
+            self.displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
         
+        }
         }
     }
     
@@ -190,8 +198,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-         //   self.present(controller, animated: true, completion: nil)
-             self.navigationController?.pushViewController(controller, animated: true)
+            self.navigationController?.pushViewController(controller, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             alert.dismiss(animated: true, completion: nil)
@@ -239,11 +246,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        
-//        let rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
-//        UIApplication.shared.keyWindow?.rootViewController = rootViewController
-//        
-        
+   
     }
     
     

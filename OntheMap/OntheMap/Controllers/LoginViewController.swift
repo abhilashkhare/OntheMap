@@ -51,7 +51,8 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
                 self.activityIndicator.stopAnimating()
             performUIUpdatesOnMain{
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
-                           self.present(controller, animated: true, completion: nil)
+                    self.navigationController?.pushViewController(controller, animated: true)
+                    self.present(controller, animated: true, completion: nil)
                     }
                 }
                 

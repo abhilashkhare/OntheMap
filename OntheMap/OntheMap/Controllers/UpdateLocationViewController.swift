@@ -21,10 +21,17 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     let link : String = ""
     let annotation = MKPointAnnotation()
     
-  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        self.title = "Add Location"
+        self.navigationController?.toolbar.isHidden = true
+        
         let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = userLocation
         displayActivityIndicator()
@@ -121,8 +128,6 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
 //                    self.present(controller!, animated: true, completion: nil)
                   
                     performUIUpdatesOnMain {
-                    //    self.addLocation.dismiss(animated: true, completion: nil)
-                        print(self.navigationController?.popToRootViewController)
                         self.navigationController?.popToRootViewController(animated: true)
 
 
