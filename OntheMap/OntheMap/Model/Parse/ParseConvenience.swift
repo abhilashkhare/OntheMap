@@ -23,15 +23,15 @@ extension ParseClient
             
             if let error = error {
                 print(error)
-               completionHandlerForGetStudentsInfo(false,nil,"Failed to GET student information")
+                completionHandlerForGetStudentsInfo(false,nil,"Failed to GET student information")
                 
             }
             else
             {
                 completionHandlerForGetStudentsInfo(true , result , nil)
-              
+                
             }
-             
+            
         }
     }
     
@@ -41,11 +41,11 @@ extension ParseClient
     {
         let parameters = ["where" : "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\"}"]
         taskForGETMethod(parameters: parameters as [String : AnyObject]) { (result, error) in
-
+            
             if let error = error {
                 print(error)
                 completionHandlerForGetStudentInfo(false,nil,"Failed to GET student information")
-
+                
             }
             else
             {
@@ -54,21 +54,21 @@ extension ParseClient
                 var results = result!["results"]  as? [[String : AnyObject]]
                 
                 print(results?.count)
-             
+                
                 if(results?.count != 0 )
                 {
-                userLocation = studentInformation(dictionary: (results![0]))
-                userInformation  = userLocation
-                
-                print(userInformation.firstName)
-                print(userInformation.lastName)
-                print(userInformation.latitude)
-                print(userInformation.longitude)
-                print(userInformation.mapString)
-                print(userInformation.mediaURL)
-
-                print(userInformation.objectID)
-                
+                    userLocation = studentInformation(dictionary: (results![0]))
+                    userInformation  = userLocation
+                    
+                    print(userInformation.firstName)
+                    print(userInformation.lastName)
+                    print(userInformation.latitude)
+                    print(userInformation.longitude)
+                    print(userInformation.mapString)
+                    print(userInformation.mediaURL)
+                    
+                    print(userInformation.objectID)
+                    
                 }
                 else
                 {
@@ -77,13 +77,13 @@ extension ParseClient
                     }
                 }
             }
+        }
     }
- }
     
     func putStudentInformation( _ completionHandlerForPut : @ escaping(_ success : Bool , _ error : Error?) -> Void)
     {
         
-   
+        
         let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
         print(httpBody)
         taskForPUTMethod(httpBody,userInformation.objectID!)
@@ -103,15 +103,6 @@ extension ParseClient
     func postStudentInformation(_ completionHandlerForPost : @escaping (_ success : Bool ,_ result : AnyObject?, _ error : Error?) ->Void)
     {
         print(Constants.StudentInformation.uniqueKey)
-        
-//        if (userInformation.firstName == nil || userInformation.lastName
-//             == nil)
-//        {
-//            userInformation.firstName = Constants.StudentInformation.firstName
-//            userInformation.lastName = Constants.StudentInformation.lastName
-//
-//        }
-//
         print(userInformation.firstName)
         print(userInformation.lastName)
         print(userInformation.latitude)
@@ -120,23 +111,23 @@ extension ParseClient
         print(userInformation.mediaURL)
         
         let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
-            taskForPOSTMethod(httpBody)
-            {(result,error) in
-                
-                if let error = error{
-                    completionHandlerForPost(false,result,error)
-                }
-                else
-                {
-                    completionHandlerForPost(true,result,nil)
-                }
-                
+        taskForPOSTMethod(httpBody)
+        {(result,error) in
+            
+            if let error = error{
+                completionHandlerForPost(false,result,error)
+            }
+            else
+            {
+                completionHandlerForPost(true,result,nil)
+            }
+            
         }
     }
     
- 
+    
 }
 
-        
+
 
 

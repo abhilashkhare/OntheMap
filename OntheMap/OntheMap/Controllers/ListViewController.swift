@@ -1,9 +1,9 @@
 
-  //ListViewController.swift
-  //OntheMap
+//ListViewController.swift
+//OntheMap
 
-  //Created by Abhilash Khare on 2/13/18.
-  //Copyright © 2018 Abhilash Khare. All rights reserved.
+//Created by Abhilash Khare on 2/13/18.
+//Copyright © 2018 Abhilash Khare. All rights reserved.
 
 
 import UIKit
@@ -11,9 +11,8 @@ import Foundation
 
 
 class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDataSource {
-
- //  var studentInfo : [studentInformation] = []
-
+    
+    
     @IBOutlet var tableView : UITableView?
     
     
@@ -21,44 +20,43 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = false
         displayList()
-    
+        
     }
     
-  
+    
     func displayList()
     {
         
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
             
             performUIUpdatesOnMain {
-            if(error != nil)
-            {
-                print ("Error loading student data")
-                self.displayAlert("Error", error!, "Cancel")
-            }
-            else
-            {
-                let  studentsArray = data!["results"]  as? [[String : AnyObject]]
-        
-                for student in studentsArray!
+                if(error != nil)
                 {
-//                    self.studentInfo.append(studentInformation(dictionary : student))
-                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary : student))
+                    print ("Error loading student data")
+                    self.displayAlert("Error", error!, "Cancel")
                 }
-                
-                if SharedData.sharedInstance.StudentLocations.count != 0
+                else
                 {
-                    print("count")
-                    print(SharedData.sharedInstance.StudentLocations.count)
-                    performUIUpdatesOnMain {
-                        
-                        self.tableView?.reloadData()
+                    let  studentsArray = data!["results"]  as? [[String : AnyObject]]
+                    
+                    for student in studentsArray!
+                    {
+                        sharedData.sharedInstance.studentLocations.append(studentInformation(dictionary : student))
                     }
                     
+                    if sharedData.sharedInstance.studentLocations.count != 0
+                    {
+                        print("count")
+                        print(sharedData.sharedInstance.studentLocations.count)
+                        performUIUpdatesOnMain {
+                            
+                            self.tableView?.reloadData()
+                        }
+                        
+                    }
                 }
             }
-         }
-     })
+        })
     }
     
     @IBAction func refresh(_ sender : Any)
@@ -106,14 +104,14 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         }
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-   
-        return SharedData.sharedInstance.StudentLocations.count    }
-
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return sharedData.sharedInstance.studentLocations.count    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCellOTM") as! ListCellOTM
-        let info = SharedData.sharedInstance.StudentLocations[(indexPath as NSIndexPath).row]
+        let info = sharedData.sharedInstance.studentLocations[(indexPath as NSIndexPath).row]
         
         tableView.rowHeight = 70
         
@@ -121,14 +119,14 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         {
             cell.name.text = "\(firstname)"+" "+"\(lastname)"
             cell.URL.text =  info.mediaURL
-        
+            
         }
         return cell
-
+        
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      let info = SharedData.sharedInstance.StudentLocations[(indexPath as NSIndexPath).row ]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let info = sharedData.sharedInstance.studentLocations[(indexPath as NSIndexPath).row ]
         let url = URL( string : info.mediaURL!)
         
         if url?.scheme != "https"
@@ -158,7 +156,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     
     func displayAlert(_ title : String, _ message : String , _ action : String)
     {
@@ -167,5 +165,5 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         self.present(alert, animated: true, completion: nil)
     }
     
-
+    
 }

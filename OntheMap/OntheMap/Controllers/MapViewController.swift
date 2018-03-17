@@ -12,10 +12,10 @@ import MapKit
 class MapViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet  var mapView : MKMapView!
-   
+    
     var refresh = 0
     var annotations = [MKPointAnnotation]()
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -47,7 +47,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         
     }
-   
+    
     func callstudentInformation()
     {
         ParseClient.sharedInstance().getStudentsInformation({(success, data, error) in
@@ -63,12 +63,12 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 
                 for student in studentsArray!
                 {
-                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary: student))
+                    sharedData.sharedInstance.studentLocations.append(studentInformation(dictionary: student))
                 }
                 
                 if studentsArray?.count != 0
                 {
-                    self.markPins(SharedData.sharedInstance.StudentLocations,0)
+                    self.markPins(sharedData.sharedInstance.studentLocations,0)
                 }
             }
         })
@@ -88,23 +88,23 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             }
             
         }
-      
+        
         for student in studentinfo
         {
             if  let latitude = student.latitude,let longitude = student.longitude{
                 let lat = CLLocationDegrees(latitude)
                 let long = CLLocationDegrees(longitude)
-           
+                
                 let coordinate =   CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
                 if let firstName = student.firstName,let lastName = student.lastName
                 {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "\(firstName) \(lastName)"
-                annotation.subtitle = student.mediaURL
-                
-                annotations.append(annotation)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinate
+                    annotation.title = "\(firstName) \(lastName)"
+                    annotation.subtitle = student.mediaURL
+                    
+                    annotations.append(annotation)
                 }
             }
         }
@@ -148,20 +148,18 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         performUIUpdatesOnMain {
             
-        
-        
-       // let navigationController = UINavigationController(rootViewController: MapViewController())
-        if(userInformation.objectID == nil){
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-            self.navigationController?.pushViewController(controller, animated: true)
-          //  self.present(controller, animated: true, completion: nil)
-        }
-        
-        else
-        {
-            self.displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
-        
-        }
+            
+            
+            if(userInformation.objectID == nil){
+                let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+                
+            else
+            {
+                self.displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
+                
+            }
         }
     }
     
@@ -176,17 +174,17 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 
             else
             {
-   
+                
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
                 
                 for student in studentsArray!
                 {
-                    SharedData.sharedInstance.StudentLocations.append(studentInformation(dictionary: student))
+                    sharedData.sharedInstance.studentLocations.append(studentInformation(dictionary: student))
                 }
                 
                 if studentsArray?.count != 0
                 {
-                    self.markPins(SharedData.sharedInstance.StudentLocations,1)
+                    self.markPins(sharedData.sharedInstance.studentLocations,1)
                 }
             }
         })
@@ -213,32 +211,30 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     }
     
     
-@IBAction  func logOut(_ sender : Any)
+    @IBAction  func logOut(_ sender : Any)
     {
         performUIUpdatesOnMain {
             
-    
-        UdacityClient.sharedInstance().logOutFunction { (data, error) in
-            if error != nil
-            {
-                let alert = UIAlertController(title:"Log off Error", message: "Could not log out", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Log off Error", style: .default, handler: { (action) in
-                    alert.dismiss(animated: true, completion: nil)
-                
-                }))
-            }
-            else{
-                debugPrint("Log off successful")
-                performUIUpdatesOnMain {
-                    self.dismiss(animated: true, completion: nil)
+            
+            UdacityClient.sharedInstance().logOutFunction { (data, error) in
+                if error != nil
+                {
+                    let alert = UIAlertController(title:"Log off Error", message: "Could not log out", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Log off Error", style: .default, handler: { (action) in
+                        alert.dismiss(animated: true, completion: nil)
+                        
+                    }))
+                }
+                else{
+                    debugPrint("Log off successful")
+                    performUIUpdatesOnMain {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                    
                 }
                 
-                //let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-             //   self.present(controller!, animated: true, completion: nil)
-                
             }
-
-        }
         }
     }
     
@@ -246,14 +242,14 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-   
+        
     }
     
     
     
-    }
-    
+}
 
 
-  
+
+
 

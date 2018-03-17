@@ -11,7 +11,7 @@ import UIKit
 
 class UdacityClient{
     
-
+    
     func taskforPOSTmethod(_ username : String, _ password : String,completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: String?) -> Void) {
         
         /* 2/3. Build the URL, Configure the request */
@@ -23,7 +23,7 @@ class UdacityClient{
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
         
         let session = URLSession.shared
-
+        
         
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -59,8 +59,8 @@ class UdacityClient{
         
         /* 7. Start the request */
         task.resume()
-
-        }
+        
+    }
     
     public func taskForGETMethodUdacity(_ userid : String,completionHandlerForTaskForGetMethod : @escaping(_ results : AnyObject?,_ error : String?) ->Void)
     {
@@ -71,7 +71,7 @@ class UdacityClient{
         
         let task = session.dataTask(with: request as URLRequest){
             (data,response,error) in
-           
+            
             func sendError(_ error: String) {
                 completionHandlerForTaskForGetMethod("NULL" as AnyObject, error)
             }
@@ -100,10 +100,10 @@ class UdacityClient{
         
         /* 7. Start the request */
         task.resume()
-            
-        }
         
-        
+    }
+    
+    
     
     
     func convertDataWithCompletionHandler(_ data : Data, completionHandlerforConvertData : (_ result : AnyObject?, _ error : String?) -> Void )
@@ -118,14 +118,14 @@ class UdacityClient{
         completionHandlerforConvertData(parsedResult, nil)
         
     }
- 
+    
     class func sharedInstance() -> UdacityClient {
         struct Singleton {
             static var sharedInstance = UdacityClient()
         }
         return Singleton.sharedInstance
     }
-
-
+    
+    
     
 }

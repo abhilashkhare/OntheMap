@@ -12,11 +12,11 @@ import Foundation
 class ParseClient
 {
     let session = URLSession.shared
-
+    
     
     func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void)  {
         
-      
+        
         
         /* 2/3. Build the URL, Configure the request */
         var request = URLRequest(url: OTMURLFromParameters(parameters))
@@ -57,8 +57,7 @@ class ParseClient
         /* 7. Start the request */
         task.resume()
         
-   //     return task
-    
+        
     }
     
     private func OTMURLFromParameters(_ parameters: [String:AnyObject] ) -> URL {
@@ -78,7 +77,7 @@ class ParseClient
         print(components.url!)
         return components.url!
     }
-
+    
     
     func convertDataWithCompletionHandler(_ data : Data, completionHandlerforConvertData : (_ result : AnyObject?, _ error : NSError?) -> Void )
     {
@@ -96,7 +95,7 @@ class ParseClient
     
     func taskForPUTMethod(_ httpBody : String , _ objectID : String , completionHandlerForPut : @escaping( _ response: AnyObject?,_ error : Error?) -> Void) -> URLSessionTask
     {
-    
+        
         var urlString  = "https://parse.udacity.com/parse/classes/StudentLocation/\(objectID)"
         print(urlString)
         let url = URL(string : urlString)
@@ -106,7 +105,7 @@ class ParseClient
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = httpBody.data(using: .utf8)
-    
+        
         let session = URLSession.shared
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -195,12 +194,12 @@ class ParseClient
         
         /* 7. Start the request */
         task.resume()
- 
+        
         
     }
     
     
-
+    
     
     
     class func sharedInstance() -> ParseClient {

@@ -10,12 +10,11 @@ import Foundation
 
 var userInformation = studentInformation(dictionary: [:])
 
-var exists : Bool = false
 
-class SharedData {
+class sharedData {
     
-    static let sharedInstance = SharedData()
-    var StudentLocations = [studentInformation]()
+    static let sharedInstance = sharedData()
+    var studentLocations = [studentInformation]()
     private init() {}
     
 }

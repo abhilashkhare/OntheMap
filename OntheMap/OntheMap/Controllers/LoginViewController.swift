@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITextFieldDelegate {
-
+    
     @IBOutlet var username : UITextField!
     @IBOutlet var password : UITextField!
     @IBOutlet weak var errorTextArea: UITextView!
@@ -32,32 +32,32 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         UdacityClient.sharedInstance().authentication(self, usernameText, passwordtext) { (success, data, error) in
             if(success == false)
             {
-            self.activityIndicator.stopAnimating()
-           if error == "Your request returned a status code other than 2xx!"
-           {
-            performUIUpdatesOnMain{
-                self.errorTextArea.text = "Please enter valid email/password"
-            }
+                self.activityIndicator.stopAnimating()
+                if error == "Your request returned a status code other than 2xx!"
+                {
+                    performUIUpdatesOnMain{
+                        self.errorTextArea.text = "Please enter valid email/password"
+                    }
                 }
                 else
-            {
-                performUIUpdatesOnMain{
-                    self.errorTextArea.text = error
+                {
+                    performUIUpdatesOnMain{
+                        self.errorTextArea.text = error
                     }
                 }
             }
             else
             {
                 self.activityIndicator.stopAnimating()
-            performUIUpdatesOnMain{
-                                let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
+                performUIUpdatesOnMain{
+                    let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
                     self.navigationController?.pushViewController(controller, animated: true)
                     self.present(controller, animated: true, completion: nil)
-                    }
                 }
-                
             }
-    
+            
+        }
+        
     }
     
     func displayActivityIndicator()
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         
         
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,21 +91,20 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         
         super.viewWillDisappear(true)
         
-        NotificationCenter.default.removeObserver(self,  name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self,  name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func keyboardWillShow(notification : NSNotification)
     {
-            let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-            self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!/2
+        let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!/2
     }
     
     
     @objc func keyboardWillHide(notification : NSNotification)
     {
-       
-            self.view.frame.origin.y = 0
+        
+        self.view.frame.origin.y = 0
         
     }
     
@@ -114,13 +113,13 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
         textField.resignFirstResponder()
         return true
     }
- 
-
     
-
+    
+    
+    
 }
 
-    
+
 
 
 

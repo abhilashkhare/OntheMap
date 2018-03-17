@@ -13,7 +13,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var finishButton : UIButton!
-  let activityIndicator = UIActivityIndicatorView()
+    let activityIndicator = UIActivityIndicatorView()
     
     let userLocation : String = Constants.StudentInformation.location
     var lat : CLLocationDegrees = 0.0
@@ -41,14 +41,14 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         
         let searchLocation = MKLocalSearch(request: searchRequest)
         searchLocation.start(completionHandler: {(response,error) in performUIUpdatesOnMain {
-           
-
+            
+            
             if let error = error {
                 self.activityIndicator.stopAnimating()
                 self.finishButton.isEnabled = false
                 self.displayAlert("Location not found", "Location not Found", "OK")
             }
-           
+            
             if let mapItems = response?.mapItems{
                 if let mapLocation = mapItems.first{
                     self.annotation.coordinate = mapLocation.placemark.coordinate
@@ -62,13 +62,13 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                     userInformation.latitude = self.annotation.coordinate.latitude
                     userInformation.longitude = self.annotation.coordinate.longitude
                     userInformation.mapString = mapLocation.name
-                   
+                    
                 }
                 //Stopping activityIndicator after geocoding is complete
                 self.activityIndicator.stopAnimating()
             }
             }})
-            
+        
     }
     
     @IBAction func cancel (_ sender : Any)
@@ -98,7 +98,7 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                             print(userInformation.objectID)
                             debugPrint("Posted successfully")
                             
-                       self.navigationController?.popToRootViewController(animated: true)
+                            self.navigationController?.popToRootViewController(animated: true)
                             
                         }
                 }
@@ -110,36 +110,30 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         else
         {
             performUIUpdatesOnMain {
-            
+    
+                ParseClient.sharedInstance().putStudentInformation()
+                    {
+                        (success,error) in
+                        if(error !=  nil)
+                        {
+                            print("Error posting location")
+                            self.displayAlert("Error", "Error Postig request", "Dismiss")
+                        }
+                        else
+                        {
+                            print("Posted(PUT) successfully")
+                            
+                            performUIUpdatesOnMain {
+                                self.navigationController?.popToRootViewController(animated: true)
+                                
+                            }
+                            
+                        }
+                }
                 
-
-          ParseClient.sharedInstance().putStudentInformation()
-            {
-                (success,error) in
-                if(error !=  nil)
-                {
-                    print("Error posting location")
-                    self.displayAlert("Error", "Error Postig request", "Dismiss")
-                }
-                else
-                {
-                    print("Posted(PUT) successfully")
-//                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "OntheMapTabViewController")
-//                    self.present(controller!, animated: true, completion: nil)
-                  
-                    performUIUpdatesOnMain {
-                        self.navigationController?.popToRootViewController(animated: true)
-
-
-                    }
-
-                }
             }
-
+            
         }
-        
-        }
-        
         
     }
     
@@ -153,14 +147,14 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
     
     func displayActivityIndicator()
     {
-       
+        
         activityIndicator.center = self.view.center
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
         
-
+        
     }
-
-
+    
+    
 }
