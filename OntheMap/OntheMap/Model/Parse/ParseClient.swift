@@ -14,7 +14,7 @@ class ParseClient
     let session = URLSession.shared
     
     
-    func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void)  {
+    func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void)   {
         
         
         

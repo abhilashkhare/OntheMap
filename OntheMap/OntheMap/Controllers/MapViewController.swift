@@ -140,6 +140,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                 UIApplication.shared.open(url!)
             }
         }
+        
     }
     
     
