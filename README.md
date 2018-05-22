@@ -1,6 +1,6 @@
 # On the Map
 
-On the Map app is written in SWIFT 4. This app posts user-generated location information to a shared map, pulling the locations of fellow Nanodegree students, with custom messages about themselves or their learning experience.
+On the Map app is written in SWIFT 4. This app  allows users to post user-generated location information to a shared map, pulling the locations of fellow Nanodegree students, with their names and respective websites. It has two views - MapView and TableView
 
 
 # Installation
