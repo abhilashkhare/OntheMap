@@ -20,7 +20,6 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = false
         displayList()
-        
     }
     
     
@@ -49,7 +48,6 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
                         print("count")
                         print(sharedData.sharedInstance.studentLocations.count)
                         performUIUpdatesOnMain {
-                            
                             self.tableView?.reloadData()
                         }
                         
@@ -59,8 +57,7 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         })
     }
     
-    @IBAction func refresh(_ sender : Any)
-    {
+    @IBAction func refresh(_ sender : Any)  {
         displayList()
     }
     
@@ -69,12 +66,8 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         if(userInformation.objectID == nil){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
             self.present(controller, animated: true, completion: nil)
-        }
-            
-        else
-        {
+        }   else {
             displayAlertPop("User has already posted a student location. Would you like to OverWrite their location?")
-            
         }
     }
     
@@ -91,13 +84,11 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
                         alert.dismiss(animated: true, completion: nil)
                         
                     }))
-                }
-                else{
+                }   else {
                     print("Log off successful")
                     performUIUpdatesOnMain {
                         self.dismiss(animated: true, completion: nil)
                     }
-                    
                 }
                 
             }
@@ -105,8 +96,8 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return sharedData.sharedInstance.studentLocations.count    }
+        return sharedData.sharedInstance.studentLocations.count
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -115,14 +106,11 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         
         tableView.rowHeight = 70
         
-        if let firstname = info.firstName,let  lastname = info.lastName
-        {
+        if let firstname = info.firstName,let  lastname = info.lastName{
             cell.name.text = "\(firstname)"+" "+"\(lastname)"
             cell.URL.text =  info.mediaURL
-            
         }
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -132,15 +120,11 @@ class ListViewController:  UIViewController, UITableViewDelegate , UITableViewDa
         if url?.scheme != "https"
         {
             displayAlert("","Invalid URL","Dismiss")
-        }
-        else
-        {
+        }   else    {
             UIApplication.shared.open(url!)
         }
         
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        
+        tableView.deselectRow(at: indexPath, animated: true)      
     }
     
     func displayAlertPop( _ message : String)

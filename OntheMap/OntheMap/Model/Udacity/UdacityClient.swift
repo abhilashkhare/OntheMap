@@ -22,9 +22,7 @@ class UdacityClient{
         
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
         
-        let session = URLSession.shared
-        
-        
+        let session = URLSession.shared  
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
@@ -100,11 +98,7 @@ class UdacityClient{
         
         /* 7. Start the request */
         task.resume()
-        
     }
-    
-    
-    
     
     func convertDataWithCompletionHandler(_ data : Data, completionHandlerforConvertData : (_ result : AnyObject?, _ error : String?) -> Void )
     {
@@ -113,10 +107,8 @@ class UdacityClient{
             parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             completionHandlerforConvertData( nil, "Could not parse the data as JSON: '\(data)'")
-        }
-        
+        }        
         completionHandlerforConvertData(parsedResult, nil)
-        
     }
     
     class func sharedInstance() -> UdacityClient {

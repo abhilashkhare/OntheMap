@@ -19,9 +19,7 @@ extension UdacityClient{
                 if (error != nil) {
                     completionHandlerforAuth(false,result!,error!)
                     
-                }
-                else
-                {
+                }   else    {
                     if  let account = result!["account"] as? [String : AnyObject],let key = account["key"] as? String{
                         Constants.StudentInformation.uniqueKey = key
                         print(Constants.StudentInformation.uniqueKey)
@@ -79,7 +77,6 @@ extension UdacityClient{
         task.resume()
     }
     
-    
     public func getPublicData(_ uniqueID: String, completionHandlerForGetPublicData : @escaping (_ success : Bool, _ result : String, _ error : String?) -> Void)
     {
         taskForGETMethodUdacity(uniqueID) { (result, error) in
@@ -106,11 +103,7 @@ extension UdacityClient{
                         }
                     }
                 }
-                
-                
-                
-            }
-            
+            }            
         }
     }
     

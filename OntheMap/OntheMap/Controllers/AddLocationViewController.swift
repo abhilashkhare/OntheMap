@@ -74,9 +74,7 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(true)
-        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -94,15 +92,11 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
             self.view.frame.origin.y = keyboardYPosition - (link.frame.origin.y + link.frame.height)
         }
 
-        
     }
     
     
-    @objc func keyboardWillHide(notification : NSNotification)
-    {
-        
+    @objc func keyboardWillHide(notification : NSNotification){
         self.view.frame.origin.y = 0
-        
     }
     
     
@@ -110,7 +104,5 @@ class AddLocationViewController: UIViewController,UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    
     
 }

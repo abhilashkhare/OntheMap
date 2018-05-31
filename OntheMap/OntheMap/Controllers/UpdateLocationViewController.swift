@@ -71,13 +71,10 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
         
     }
     
-    @IBAction func cancel (_ sender : Any)
-    {
+    @IBAction func cancel (_ sender : Any)  {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
+  
     @IBAction func pressFinishButton(_ sender: Any) {
         activityIndicator.startAnimating()
         if(userInformation.objectID == nil){
@@ -91,20 +88,14 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                         {
                             print("Error posting location")
                             self.displayAlert("Error", "Error POSTING request", "Dismiss")
-                        }
-                        else
-                        {
+                        } else {
                             userInformation.objectID = result?["objectId"] as! String
                             print(userInformation.objectID)
                             debugPrint("Posted successfully")
-                            
                             self.navigationController?.popToRootViewController(animated: true)
-                            
                         }
                 }
-                
             }
-            
         }
             
         else
@@ -118,43 +109,27 @@ class UpdateLocationViewController: UIViewController,MKMapViewDelegate {
                         {
                             print("Error posting location")
                             self.displayAlert("Error", "Error Postig request", "Dismiss")
-                        }
-                        else
-                        {
+                        } else {
                             print("Posted(PUT) successfully")
-                            
                             performUIUpdatesOnMain {
                                 self.navigationController?.popToRootViewController(animated: true)
-                                
                             }
-                            
                         }
                 }
-                
             }
-            
         }
-        
     }
     
-    
-    func displayAlert(_ title : String, _ message : String , _ action : String)
-    {
+    func displayAlert(_ title : String, _ message : String , _ action : String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: action, style: .default, handler: {action in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
     }
     
-    func displayActivityIndicator()
-    {
-        
+    func displayActivityIndicator(){
         activityIndicator.center = self.view.center
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
-        
-        
     }
-    
-    
 }

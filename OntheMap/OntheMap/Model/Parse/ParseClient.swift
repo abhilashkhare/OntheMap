@@ -15,9 +15,7 @@ class ParseClient
     
     
     func taskForGETMethod( parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void)   {
-        
-        
-        
+   
         /* 2/3. Build the URL, Configure the request */
         var request = URLRequest(url: OTMURLFromParameters(parameters))
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -56,13 +54,9 @@ class ParseClient
         
         /* 7. Start the request */
         task.resume()
-        
-        
     }
     
     private func OTMURLFromParameters(_ parameters: [String:AnyObject] ) -> URL {
-        
-        
         var components = URLComponents()
         components.scheme = "https"
         components.host = "parse.udacity.com"
@@ -73,11 +67,9 @@ class ParseClient
             let queryItem = URLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        
         print(components.url!)
         return components.url!
     }
-    
     
     func convertDataWithCompletionHandler(_ data : Data, completionHandlerforConvertData : (_ result : AnyObject?, _ error : NSError?) -> Void )
     {
@@ -95,7 +87,6 @@ class ParseClient
     
     func taskForPUTMethod(_ httpBody : String , _ objectID : String , completionHandlerForPut : @escaping( _ response: AnyObject?,_ error : Error?) -> Void) -> URLSessionTask
     {
-        
         var urlString  = "https://parse.udacity.com/parse/classes/StudentLocation/\(objectID)"
         print(urlString)
         let url = URL(string : urlString)
@@ -109,9 +100,7 @@ class ParseClient
         let session = URLSession.shared
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            
-            
-            
+           
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -194,13 +183,7 @@ class ParseClient
         
         /* 7. Start the request */
         task.resume()
-        
-        
     }
-    
-    
-    
-    
     
     class func sharedInstance() -> ParseClient {
         struct Singleton {

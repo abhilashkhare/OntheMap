@@ -174,15 +174,12 @@ class MapViewController: UIViewController,MKMapViewDelegate {
             }
                 
             else
-            {
-                
+            {                
                 let  studentsArray = data!["results"]  as? [[String : AnyObject]]
                 
-                for student in studentsArray!
-                {
+                for student in studentsArray!{
                     sharedData.sharedInstance.studentLocations.append(studentInformation(dictionary: student))
                 }
-                
                 if studentsArray?.count != 0
                 {
                     self.markPins(sharedData.sharedInstance.studentLocations,1)

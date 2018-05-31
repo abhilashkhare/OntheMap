@@ -25,13 +25,9 @@ extension ParseClient
                 print(error)
                 completionHandlerForGetStudentsInfo(false,nil,"Failed to GET student information")
                 
-            }
-            else
-            {
+            } else {
                 completionHandlerForGetStudentsInfo(true , result , nil)
-                
             }
-            
         }
     }
     
@@ -45,33 +41,25 @@ extension ParseClient
             if let error = error {
                 print(error)
                 completionHandlerForGetStudentInfo(false,nil,"Failed to GET student information")
-                
             }
             else
             {
-                
                 var userLocation : studentInformation
                 var results = result!["results"]  as? [[String : AnyObject]]
-                
                 print(results?.count)
                 
                 if(results?.count != 0 )
                 {
                     userLocation = studentInformation(dictionary: (results![0]))
                     userInformation  = userLocation
-                    
                     print(userInformation.firstName)
                     print(userInformation.lastName)
                     print(userInformation.latitude)
                     print(userInformation.longitude)
                     print(userInformation.mapString)
                     print(userInformation.mediaURL)
-                    
                     print(userInformation.objectID)
-                    
-                }
-                else
-                {
+                }   else{
                     UdacityClient.sharedInstance().getPublicData(Constants.StudentInformation.uniqueKey) { (success, result, error) in
                         print("callpublicdata")
                     }
@@ -82,8 +70,6 @@ extension ParseClient
     
     func putStudentInformation( _ completionHandlerForPut : @ escaping(_ success : Bool , _ error : Error?) -> Void)
     {
-        
-        
         let httpBody = "{\"uniqueKey\":\"\(Constants.StudentInformation.uniqueKey)\", \"firstName\": \"\(userInformation.firstName!)\", \"lastName\": \"\(userInformation.lastName!)\",\"mapString\": \"\(userInformation.mapString!)\", \"mediaURL\": \"\(userInformation.mediaURL!)\",\"latitude\": \(userInformation.latitude!), \"longitude\": \(userInformation.longitude!)}"
         print(httpBody)
         taskForPUTMethod(httpBody,userInformation.objectID!)
@@ -91,12 +77,9 @@ extension ParseClient
             if let error = error
             {
                 completionHandlerForPut(false,error)
-            }
-            else
-            {
+            }   else    {
                 completionHandlerForPut(true,nil)
             }
-            
         }
     }
     
@@ -116,16 +99,11 @@ extension ParseClient
             
             if let error = error{
                 completionHandlerForPost(false,result,error)
-            }
-            else
-            {
+            } else {
                 completionHandlerForPost(true,result,nil)
             }
-            
         }
     }
-    
-    
 }
 
 

@@ -9,10 +9,6 @@
 import UIKit
 
 class ListCellOTM : UITableViewCell{
- 
-    
     @IBOutlet weak var name: UILabel!
-    
-    @IBOutlet weak var URL: UILabel!
-    
+    @IBOutlet weak var URL: UILabel!    
 }

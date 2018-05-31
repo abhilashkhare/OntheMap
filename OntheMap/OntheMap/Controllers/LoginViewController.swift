@@ -45,9 +45,7 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
                         self.errorTextArea.text = error
                     }
                 }
-            }
-            else
-            {
+            }   else {
                 self.activityIndicator.stopAnimating()
                 performUIUpdatesOnMain{
                     let controller = self.storyboard!.instantiateViewController(withIdentifier: "OntheMapTabViewController") as! UITabBarController
@@ -62,13 +60,10 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
     
     func displayActivityIndicator()
     {
-        
         activityIndicator.center = self.view.center
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
-        
-        
     }
     
     
@@ -88,35 +83,25 @@ class LoginViewController: UIViewController,UINavigationControllerDelegate ,UITe
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(true)
-        
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc func keyboardWillShow(notification : NSNotification)
-    {
+    @objc func keyboardWillShow(notification : NSNotification){
         let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
         self.view.frame.origin.y -= (keyboardSize?.cgRectValue.height)!/2
     }
     
     
-    @objc func keyboardWillHide(notification : NSNotification)
-    {
-        
+    @objc func keyboardWillHide(notification : NSNotification){
         self.view.frame.origin.y = 0
-        
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    
-    
-    
+    }    
 }
 
 
